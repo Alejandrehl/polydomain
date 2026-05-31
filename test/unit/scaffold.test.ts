@@ -1,0 +1,53 @@
+import { describe, expect, it } from "vitest";
+import { resolveInitConfig } from "../../src/core/config.js";
+import { buildFileMap } from "../../src/core/scaffold.js";
+
+const cfg = (over = {}) =>
+  resolveInitConfig({ dir: "x", agents: ["claude"], ...over });
+
+describe("buildFileMap", () => {
+  it("always includes router, registry, memory, governance, guide, security, gitignore, readme", () => {
+    const m = buildFileMap(cfg());
+    for (const p of [
+      "CLAUDE.md",
+      "domains/_registry.md",
+      "memory/MEMORY.md",
+      "governance.md",
+      "GUIDE.md",
+      "SECURITY.md",
+      ".gitignore",
+      "README.md",
+    ]) {
+      expect(m).toHaveProperty(p);
+    }
+  });
+  it("default standard emits only work + side-project capsules, no references", () => {
+    const m = buildFileMap(cfg());
+    expect(m).toHaveProperty("domains/work.md");
+    expect(m).toHaveProperty("domains/side-project.md");
+    expect(m).not.toHaveProperty("domains/personal.md");
+    expect(m).not.toHaveProperty("references/external-store.md");
+  });
+  it("full + references emits all capsules and the reference", () => {
+    const m = buildFileMap(cfg({ domains: "full", includeReferences: true }));
+    expect(m).toHaveProperty("domains/personal.md");
+    expect(m).toHaveProperty("domains/home.md");
+    expect(m).toHaveProperty("references/external-store.md");
+  });
+  it("renders an entrypoint per agent", () => {
+    const m = buildFileMap(cfg({ agents: ["claude", "gemini"] }));
+    expect(m).toHaveProperty("CLAUDE.md");
+    expect(m).toHaveProperty("GEMINI.md");
+  });
+  it("substitutes the {{name}} token using the dir basename", () => {
+    const m = buildFileMap(
+      resolveInitConfig({ dir: "/tmp/my-center", agents: ["claude"] }),
+    );
+    expect(m["CLAUDE.md"]).toContain("my-center");
+    expect(m["CLAUDE.md"]).not.toContain("{{name}}");
+  });
+  it("omits memory files when includeMemory is false", () => {
+    const m = buildFileMap(cfg({ includeMemory: false }));
+    expect(m).not.toHaveProperty("memory/MEMORY.md");
+  });
+});
