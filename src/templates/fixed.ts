@@ -17,7 +17,7 @@ Asymmetric governance keeps rigor where it matters and speed elsewhere.
 This command center follows the **Capsule architecture**: one agent operates across many domains via a thin router + composable capsules, with persistent memory and a plan→review→approve→execute safety gate.
 
 Full methodology: see the \`<TOOL_NAME>\` docs site. Quick map:
-- \`<entrypoint>.md\` — the thin router (startup, transversal rules, hierarchy).
+- your agent's entrypoint (e.g. \`CLAUDE.md\`) — the thin router (startup, transversal rules, hierarchy).
 - \`domains/\` — one capsule per domain; \`_registry.md\` indexes them.
 - \`memory/\` — durable facts + index.
 - \`workspace/\` — where plans get persisted.
@@ -35,18 +35,20 @@ Full methodology: see the \`<TOOL_NAME>\` docs site. Quick map:
 A command center built with the **Capsule architecture** (\`<TOOL_NAME>\`): one AI coding agent, many domains, with memory and a safety gate.
 
 ## Start
-Open \`<entrypoint>.md\` in your agent and say hi. Add a domain with \`<TOOL_NAME> add domain <name>\`.
+Open your agent's entrypoint (e.g. \`CLAUDE.md\`) and say hi. Add a domain with \`<TOOL_NAME> add domain <name>\`.
 
 ## Layout
-- \`<entrypoint>.md\` — the router · \`domains/\` — capsules · \`memory/\` — facts · \`workspace/\` — plans · \`governance.md\`.
+- your agent's entrypoint (e.g. \`CLAUDE.md\`) — the router · \`domains/\` — capsules · \`memory/\` — facts · \`workspace/\` — plans · \`governance.md\`.
 
 See \`GUIDE.md\` for the methodology primer.
 `,
   gitignore: `node_modules
 .env
 .env.*
+**/.env
 *.key
 *.pem
+*.p12
 .DS_Store
 *.log
 `,

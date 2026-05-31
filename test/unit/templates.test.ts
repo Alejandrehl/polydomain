@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { render } from "../../src/core/tokens.js";
 import { CAPSULES, REGISTRY } from "../../src/templates/domains.js";
 import { FIXED } from "../../src/templates/fixed.js";
 import { ROUTER } from "../../src/templates/router.js";
@@ -26,6 +27,7 @@ describe("domain templates", () => {
     for (const md of Object.values(CAPSULES)) {
       expect(md).toMatch(/entry point/i);
       expect(md).toMatch(/permission/i);
+      expect(md).toMatch(/## Rules/i);
     }
   });
   it("registry is a table with a name token", () => {
@@ -35,7 +37,7 @@ describe("domain templates", () => {
 });
 describe("fixed templates", () => {
   it("provides all fixed files", () => {
-    for (const k of [
+    const keys: (keyof typeof FIXED)[] = [
       "memoryIndex",
       "governance",
       "guide",
@@ -43,10 +45,10 @@ describe("fixed templates", () => {
       "readme",
       "gitignore",
       "externalStore",
-    ]) {
-      expect(FIXED).toHaveProperty(k);
-      const value = (FIXED as Record<string, string>)[k];
-      expect(value?.length).toBeGreaterThan(0);
+    ];
+    for (const k of keys) {
+      expect(typeof FIXED[k]).toBe("string");
+      expect(FIXED[k].length).toBeGreaterThan(0);
     }
   });
   it("SECURITY warns against committing secrets", () => {
@@ -55,5 +57,14 @@ describe("fixed templates", () => {
   });
   it("gitignore ignores common secret files", () => {
     expect(FIXED.gitignore).toMatch(/\.env/);
+  });
+});
+describe("render leaves non-{{}} placeholders untouched", () => {
+  it("keeps <TOOL_NAME> literal and substitutes {{name}} in the readme", () => {
+    const out = render(FIXED.readme, { name: "myteam" });
+    expect(out).toContain("<TOOL_NAME>"); // brand token baked in a later phase, not by render()
+    expect(out).toContain("CLAUDE.md"); // entrypoint example is plain prose
+    expect(out).toContain("myteam"); // {{name}} was substituted
+    expect(out).not.toContain("{{name}}");
   });
 });

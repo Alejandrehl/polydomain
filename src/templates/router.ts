@@ -6,7 +6,7 @@ export const ROUTER = `# {{name}} — command center (router)
 ## 1. Session startup
 1. Verify the current date/time before reasoning about time.
 2. Determine the domain(s) of the request from the first message.
-3. Load that domain's capsule (\`domains/<name>.md\`) + its recent state.
+3. Load that domain's capsule (\`domains/<domain>.md\`) + its recent state.
 4. Operate under the capsule's rules + the transversal rules below.
 
 ## 2. Transversal rules (always active)
