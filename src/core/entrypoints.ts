@@ -9,4 +9,4 @@ const MAP: Record<AgentId, string> = {
 export function entrypointPath(agent: AgentId): string {
   return MAP[agent];
 }
-export const ALL_AGENTS: AgentId[] = ["claude", "codex", "gemini", "cursor"];
+export const ALL_AGENTS = Object.keys(MAP) as AgentId[];

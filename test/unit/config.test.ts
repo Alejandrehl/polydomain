@@ -19,10 +19,17 @@ describe("resolveDomains", () => {
   it("accepts an explicit comma list", () => {
     expect(resolveDomains("work,home")).toEqual(["work", "home"]);
   });
+  it("trims whitespace in the comma list", () => {
+    expect(resolveDomains(" work , home ")).toEqual(["work", "home"]);
+  });
+  it("returns an empty list for an empty spec", () => {
+    expect(resolveDomains("")).toEqual([]);
+  });
 });
 describe("resolveInitConfig", () => {
   it("applies defaults when only dir+agents given", () => {
     const c = resolveInitConfig({ dir: "x", agents: ["claude"] });
+    expect(c.dir).toBe("x");
     expect(c.domains).toEqual(["work", "side-project"]);
     expect(c.includeMemory).toBe(true);
     expect(c.includeReferences).toBe(false);

@@ -1,4 +1,4 @@
-import { existsSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -25,6 +25,6 @@ describe("writeTree", () => {
     const d = mkdtempSync(join(tmpdir(), "cd-"));
     writeTree(d, { "a/b.md": "hello", "c.md": "world" });
     expect(readFileSync(join(d, "a/b.md"), "utf8")).toBe("hello");
-    expect(existsSync(join(d, "c.md"))).toBe(true);
+    expect(readFileSync(join(d, "c.md"), "utf8")).toBe("world");
   });
 });
