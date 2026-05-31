@@ -9,7 +9,12 @@ execFileSync(
   ["dist/cli.js", "init", dir, "--yes", "--agent", "claude", "--no-git"],
   { stdio: "inherit" },
 );
-for (const f of ["CLAUDE.md", "domains/work.md", "memory/MEMORY.md", "SECURITY.md"]) {
+for (const f of [
+  "CLAUDE.md",
+  "domains/work.md",
+  "memory/MEMORY.md",
+  "SECURITY.md",
+]) {
   if (!existsSync(join(dir, f))) {
     console.error("MISSING", f);
     process.exit(1);
