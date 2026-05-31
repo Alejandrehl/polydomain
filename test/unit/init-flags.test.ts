@@ -12,4 +12,10 @@ describe("runInit (non-interactive with --yes)", () => {
     expect(existsSync(join(dir, "domains/work.md"))).toBe(true);
     expect(readFileSync(join(dir, "CLAUDE.md"), "utf8")).toContain("my-center");
   });
+  it("rejects an unknown agent id", async () => {
+    const dir = join(mkdtempSync(join(tmpdir(), "cd-")), "c");
+    await expect(
+      runInit({ dir, yes: true, agent: "bogus", noGit: true }),
+    ).rejects.toThrow(/unknown agent/i);
+  });
 });

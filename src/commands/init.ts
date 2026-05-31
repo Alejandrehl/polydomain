@@ -1,5 +1,5 @@
 import { resolveInitConfig } from "../core/config.js";
-import { entrypointPath } from "../core/entrypoints.js";
+import { ALL_AGENTS, entrypointPath } from "../core/entrypoints.js";
 import { scaffold } from "../core/scaffold.js";
 import type { AgentId } from "../core/types.js";
 import { askAgents, intro, nextSteps } from "../ui/prompts.js";
@@ -17,10 +17,17 @@ export interface InitCliOptions {
 
 function parseAgents(spec?: string): AgentId[] {
   if (!spec) return ["claude"];
-  return spec
+  const ids = spec
     .split(",")
     .map((s) => s.trim())
-    .filter(Boolean) as AgentId[];
+    .filter(Boolean);
+  const invalid = ids.filter((a) => !ALL_AGENTS.includes(a as AgentId));
+  if (invalid.length) {
+    throw new Error(
+      `Unknown agent(s): ${invalid.join(", ")} (valid: ${ALL_AGENTS.join(", ")})`,
+    );
+  }
+  return ids as AgentId[];
 }
 
 export async function runInit(o: InitCliOptions): Promise<void> {

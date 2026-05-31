@@ -16,25 +16,35 @@ cli
   .option("--force", "Write into a non-empty directory")
   .option("-y, --yes", "Accept all defaults, no prompts")
   .action(async (dir: string | undefined, o: Record<string, unknown>) => {
-    await runInit({
-      dir: dir ?? ".",
-      yes: o["yes"] as boolean,
-      agent: o["agent"] as string,
-      domains: o["domains"] as string,
-      withReferences: o["withReferences"] as boolean,
-      noMemory: o["memory"] === false,
-      noGit: o["git"] === false,
-      force: o["force"] as boolean,
-    });
+    try {
+      await runInit({
+        dir: dir ?? ".",
+        yes: o.yes as boolean,
+        agent: o.agent as string,
+        domains: o.domains as string,
+        withReferences: o.withReferences as boolean,
+        noMemory: o.memory === false,
+        noGit: o.git === false,
+        force: o.force as boolean,
+      });
+    } catch (e) {
+      console.error((e as Error).message);
+      process.exit(1);
+    }
   });
 
 cli
   .command("add <kind> <value>", "Add a domain or an agent")
   .action(async (kind: string, value: string) => {
-    if (kind === "domain") await runAddDomain(value);
-    else if (kind === "agent") await runAddAgent(value);
-    else {
-      console.error(`Unknown: add ${kind}`);
+    try {
+      if (kind === "domain") await runAddDomain(value);
+      else if (kind === "agent") await runAddAgent(value);
+      else {
+        console.error(`Unknown kind: "${kind}". Valid: domain, agent`);
+        process.exit(1);
+      }
+    } catch (e) {
+      console.error((e as Error).message);
       process.exit(1);
     }
   });

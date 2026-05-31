@@ -25,6 +25,10 @@ export const CAPSULES: Record<string, string> = {
   home: capsule("Home", "Household, devices, recurring chores."),
 };
 
+export function genericCapsule(title: string): string {
+  return capsule(title, "Describe what this domain covers.");
+}
+
 export const REGISTRY = `# Domain registry — {{name}}
 
 Single source of which domains exist and where each lives. Extend = one row + one capsule.

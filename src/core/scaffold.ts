@@ -1,12 +1,20 @@
 import { execSync } from "node:child_process";
 import { basename } from "node:path";
-import { CAPSULES, REGISTRY } from "../templates/domains.js";
+import { CAPSULES, genericCapsule, REGISTRY } from "../templates/domains.js";
 import { FIXED } from "../templates/fixed.js";
 import { ROUTER } from "../templates/router.js";
 import { entrypointPath } from "./entrypoints.js";
 import { ensureEmpty, writeTree } from "./fs-safe.js";
 import { render } from "./tokens.js";
 import type { InitConfig } from "./types.js";
+
+export function assertSafeDomainName(name: string): void {
+  if (!/^[A-Za-z0-9][A-Za-z0-9-]*$/.test(name)) {
+    throw new Error(
+      `Invalid domain name: "${name}" (letters, digits, hyphens only; no slashes or dots)`,
+    );
+  }
+}
 
 export function buildFileMap(cfg: InitConfig): Record<string, string> {
   const name = basename(cfg.dir);
@@ -18,10 +26,9 @@ export function buildFileMap(cfg: InitConfig): Record<string, string> {
 
   files["domains/_registry.md"] = render(REGISTRY, v);
   for (const d of cfg.domains) {
-    const md = CAPSULES[d];
-    files[`domains/${d}.md`] = md
-      ? render(md, v)
-      : render(CAPSULES.work ?? "", v).replace(/Work/g, d);
+    assertSafeDomainName(d);
+    const md = CAPSULES[d] ?? genericCapsule(d);
+    files[`domains/${d}.md`] = render(md, v);
   }
 
   files["governance.md"] = render(FIXED.governance, v);

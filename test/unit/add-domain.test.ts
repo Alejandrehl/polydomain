@@ -31,4 +31,15 @@ describe("addDomainTo", () => {
     writeFileSync(join(dir, "domains/x.md"), "exists");
     expect(() => addDomainTo(dir, "x")).toThrow(/exists/i);
   });
+  it("throws when the registry is missing (not a command center)", () => {
+    const dir = mkdtempSync(join(tmpdir(), "cd-"));
+    mkdirSync(join(dir, "domains"), { recursive: true });
+    expect(() => addDomainTo(dir, "clients")).toThrow(/not a command center/i);
+  });
+  it("rejects a name with path separators", () => {
+    const dir = mkdtempSync(join(tmpdir(), "cd-"));
+    mkdirSync(join(dir, "domains"), { recursive: true });
+    writeFileSync(join(dir, "domains/_registry.md"), "| Domain |\n");
+    expect(() => addDomainTo(dir, "../escape")).toThrow(/invalid domain name/i);
+  });
 });

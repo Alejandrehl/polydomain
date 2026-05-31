@@ -1,6 +1,9 @@
+import { existsSync, mkdtempSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { resolveInitConfig } from "../../src/core/config.js";
-import { buildFileMap } from "../../src/core/scaffold.js";
+import { buildFileMap, scaffold } from "../../src/core/scaffold.js";
 
 const cfg = (over = {}) =>
   resolveInitConfig({ dir: "x", agents: ["claude"], ...over });
@@ -49,5 +52,34 @@ describe("buildFileMap", () => {
   it("omits memory files when includeMemory is false", () => {
     const m = buildFileMap(cfg({ includeMemory: false }));
     expect(m).not.toHaveProperty("memory/MEMORY.md");
+  });
+  it("always includes workspace/.gitkeep", () => {
+    const m = buildFileMap(cfg());
+    expect(m).toHaveProperty("workspace/.gitkeep");
+  });
+  it("rejects an unsafe domain name", () => {
+    expect(() => buildFileMap(cfg({ domains: "../evil" }))).toThrow(
+      /invalid domain name/i,
+    );
+  });
+  it("scaffold writes into a non-empty dir when force is set", () => {
+    const dir = mkdtempSync(join(tmpdir(), "cd-"));
+    writeFileSync(join(dir, "x.txt"), "x");
+    scaffold(
+      resolveInitConfig({
+        dir,
+        agents: ["claude"],
+        force: true,
+        gitInit: false,
+      }),
+    );
+    expect(existsSync(join(dir, "CLAUDE.md"))).toBe(true);
+  });
+  it("scaffold refuses a non-empty dir without force", () => {
+    const dir = mkdtempSync(join(tmpdir(), "cd-"));
+    writeFileSync(join(dir, "x.txt"), "x");
+    expect(() =>
+      scaffold(resolveInitConfig({ dir, agents: ["claude"], gitInit: false })),
+    ).toThrow(/not empty/);
   });
 });

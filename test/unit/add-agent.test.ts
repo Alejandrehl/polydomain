@@ -14,4 +14,9 @@ describe("addAgentTo", () => {
     const dir = mkdtempSync(join(tmpdir(), "cd-"));
     expect(() => addAgentTo(dir, "bogus")).toThrow(/unknown agent/i);
   });
+  it("throws if the entrypoint already exists", () => {
+    const dir = mkdtempSync(join(tmpdir(), "cd-"));
+    addAgentTo(dir, "gemini");
+    expect(() => addAgentTo(dir, "gemini")).toThrow(/already exists/i);
+  });
 });
