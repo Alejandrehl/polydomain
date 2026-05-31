@@ -1,4 +1,5 @@
 import type { AgentId, DomainPreset, InitConfig } from "./types.js";
+
 const PRESETS: Record<DomainPreset, string[]> = {
   minimal: ["work"],
   standard: ["work", "side-project"],
@@ -6,7 +7,10 @@ const PRESETS: Record<DomainPreset, string[]> = {
 };
 export function resolveDomains(spec: string): string[] {
   if (spec in PRESETS) return PRESETS[spec as DomainPreset];
-  return spec.split(",").map((s) => s.trim()).filter(Boolean);
+  return spec
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 }
 export interface InitOptions {
   dir: string;

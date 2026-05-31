@@ -1,11 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { resolveDomains, resolveInitConfig } from "../../src/core/config.js";
+
 describe("resolveDomains", () => {
   it("standard = work + side-project", () => {
     expect(resolveDomains("standard")).toEqual(["work", "side-project"]);
   });
   it("full = all four", () => {
-    expect(resolveDomains("full")).toEqual(["work", "side-project", "personal", "home"]);
+    expect(resolveDomains("full")).toEqual([
+      "work",
+      "side-project",
+      "personal",
+      "home",
+    ]);
   });
   it("minimal = single work domain", () => {
     expect(resolveDomains("minimal")).toEqual(["work"]);
@@ -25,8 +31,13 @@ describe("resolveInitConfig", () => {
   });
   it("honors overrides", () => {
     const c = resolveInitConfig({
-      dir: "x", agents: ["claude"], domains: "full",
-      includeReferences: true, includeMemory: false, gitInit: false, force: true,
+      dir: "x",
+      agents: ["claude"],
+      domains: "full",
+      includeReferences: true,
+      includeMemory: false,
+      gitInit: false,
+      force: true,
     });
     expect(c.domains).toEqual(["work", "side-project", "personal", "home"]);
     expect(c.includeReferences).toBe(true);

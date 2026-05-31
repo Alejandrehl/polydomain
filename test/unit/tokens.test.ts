@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { render } from "../../src/core/tokens.js";
+
 describe("render", () => {
   it("replaces {{key}} tokens", () => {
     expect(render("Hi {{name}}!", { name: "deck" })).toBe("Hi deck!");

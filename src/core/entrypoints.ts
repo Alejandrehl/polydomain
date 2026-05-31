@@ -1,4 +1,5 @@
 import type { AgentId } from "./types.js";
+
 const MAP: Record<AgentId, string> = {
   claude: "CLAUDE.md",
   codex: "AGENTS.md",
