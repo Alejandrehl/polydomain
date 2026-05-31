@@ -45,7 +45,8 @@ describe("fixed templates", () => {
       "externalStore",
     ]) {
       expect(FIXED).toHaveProperty(k);
-      expect((FIXED as Record<string, string>)[k].length).toBeGreaterThan(0);
+      const value = (FIXED as Record<string, string>)[k];
+      expect(value?.length).toBeGreaterThan(0);
     }
   });
   it("SECURITY warns against committing secrets", () => {
