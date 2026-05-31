@@ -35,8 +35,8 @@ Single source of which domains exist and where each lives. Extend = one row + on
 
 | Domain | Lives in | Capsule |
 |---|---|---|
-| Work | this repo / your work repos | \`domains/work.md\` |
-| Side project | this repo / project repos | \`domains/side-project.md\` |
-| Personal | this repo | \`domains/personal.md\` |
-| Home | this repo | \`domains/home.md\` |
 `;
+
+export function registryRow(name: string): string {
+  return `| ${name} | this repo | \`domains/${name}.md\` |\n`;
+}

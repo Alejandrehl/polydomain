@@ -1,6 +1,11 @@
 import { execSync } from "node:child_process";
 import { basename } from "node:path";
-import { CAPSULES, genericCapsule, REGISTRY } from "../templates/domains.js";
+import {
+  CAPSULES,
+  genericCapsule,
+  REGISTRY,
+  registryRow,
+} from "../templates/domains.js";
 import { FIXED } from "../templates/fixed.js";
 import { ROUTER } from "../templates/router.js";
 import { entrypointPath } from "./entrypoints.js";
@@ -24,9 +29,12 @@ export function buildFileMap(cfg: InitConfig): Record<string, string> {
   for (const agent of cfg.agents)
     files[entrypointPath(agent)] = render(ROUTER, v);
 
-  files["domains/_registry.md"] = render(REGISTRY, v);
+  for (const d of cfg.domains) assertSafeDomainName(d);
+
+  files["domains/_registry.md"] =
+    render(REGISTRY, v) + cfg.domains.map(registryRow).join("");
+
   for (const d of cfg.domains) {
-    assertSafeDomainName(d);
     const md = CAPSULES[d] ?? genericCapsule(d);
     files[`domains/${d}.md`] = render(md, v);
   }

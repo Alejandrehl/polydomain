@@ -82,4 +82,17 @@ describe("buildFileMap", () => {
       scaffold(resolveInitConfig({ dir, agents: ["claude"], gitInit: false })),
     ).toThrow(/not empty/);
   });
+  it("registry lists exactly the generated domains (standard)", () => {
+    const reg = buildFileMap(cfg())["domains/_registry.md"];
+    expect(reg).toContain("`domains/work.md`");
+    expect(reg).toContain("`domains/side-project.md`");
+    expect(reg).not.toContain("`domains/personal.md`");
+    expect(reg).not.toContain("`domains/home.md`");
+  });
+  it("registry lists all four domains under the full preset", () => {
+    const reg = buildFileMap(cfg({ domains: "full" }))["domains/_registry.md"];
+    for (const d of ["work", "side-project", "personal", "home"]) {
+      expect(reg).toContain(`\`domains/${d}.md\``);
+    }
+  });
 });
