@@ -1,0 +1,37 @@
+{
+  "name": "polydomain",
+  "version": "0.0.0",
+  "type": "module",
+  "bin": {
+    "polydomain": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit",
+    "smoke": "node test/smoke/run-smoke.mjs"
+  },
+  "packageManager": "pnpm@10.23.0",
+  "dependencies": {
+    "@clack/prompts": "^1.5.0",
+    "cac": "^7.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "@types/node": "^25.9.1",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
+  }
+}
