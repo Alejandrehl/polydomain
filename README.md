@@ -28,7 +28,7 @@ Then open your agent's entrypoint (e.g. `CLAUDE.md`) and say hi. The router is r
 |---|---|
 | `init [dir]` | Scaffold a new command center in `[dir]` (default: current directory) |
 | `add domain <name>` | Add a new capsule for a domain |
-| `add agent <name>` | Add or reconfigure the agent entrypoint (`claude`, `codex`, `gemini`, `cursor`) |
+| `add agent <name>` | Add an agent entrypoint (`claude`, `codex`, `gemini`, `cursor`) |
 
 ### Key flags
 
@@ -39,6 +39,7 @@ Then open your agent's entrypoint (e.g. `CLAUDE.md`) and say hi. The router is r
 | `--with-references` | `init` | Include a `references/` folder for external source notes |
 | `--no-memory` | `init` | Skip the `memory/` directory |
 | `--no-git` | `init` | Skip `git init` |
+| `--force` | `init` | Write into a non-empty directory |
 | `--yes` | `init` | Accept all defaults non-interactively |
 
 ---
