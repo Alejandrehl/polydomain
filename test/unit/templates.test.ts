@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { CAPSULES, REGISTRY } from "../../src/templates/domains.js";
+import { FIXED } from "../../src/templates/fixed.js";
 import { ROUTER } from "../../src/templates/router.js";
 
 describe("router template", () => {
@@ -30,5 +31,28 @@ describe("domain templates", () => {
   it("registry is a table with a name token", () => {
     expect(REGISTRY).toContain("{{name}}");
     expect(REGISTRY).toMatch(/\| Domain \|/);
+  });
+});
+describe("fixed templates", () => {
+  it("provides all fixed files", () => {
+    for (const k of [
+      "memoryIndex",
+      "governance",
+      "guide",
+      "security",
+      "readme",
+      "gitignore",
+      "externalStore",
+    ]) {
+      expect(FIXED).toHaveProperty(k);
+      expect((FIXED as Record<string, string>)[k].length).toBeGreaterThan(0);
+    }
+  });
+  it("SECURITY warns against committing secrets", () => {
+    expect(FIXED.security).toMatch(/secret/i);
+    expect(FIXED.security).toMatch(/context, not a vault/i);
+  });
+  it("gitignore ignores common secret files", () => {
+    expect(FIXED.gitignore).toMatch(/\.env/);
   });
 });
