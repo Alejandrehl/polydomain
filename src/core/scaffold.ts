@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
 import { basename } from "node:path";
+import { ACTIONS_MACOS } from "../templates/actions.js";
 import {
   CAPSULES,
   EXAMPLE_CAPSULE,
@@ -59,6 +60,8 @@ export function buildFileMap(cfg: InitConfig): Record<string, string> {
     if (cfg.references === "obsidian")
       files["references/obsidian.md"] = render(FIXED.obsidian, v);
   }
+  if (cfg.actions === "macos")
+    files["actions/macos.md"] = render(ACTIONS_MACOS, v);
 
   return files;
 }
