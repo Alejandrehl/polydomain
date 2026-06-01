@@ -52,6 +52,17 @@ describe("buildFileMap", () => {
       /unknown references type/i,
     );
   });
+  it("generates actions/macos.md only with actions:macos", () => {
+    expect(buildFileMap(cfg())).not.toHaveProperty("actions/macos.md");
+    expect(buildFileMap(cfg({ actions: "macos" }))).toHaveProperty(
+      "actions/macos.md",
+    );
+  });
+  it("rejects an unknown actions platform", () => {
+    expect(() => cfg({ actions: "windows" })).toThrow(
+      /unknown actions platform/i,
+    );
+  });
   it("renders an entrypoint per agent", () => {
     const m = buildFileMap(cfg({ agents: ["claude", "gemini"] }));
     expect(m).toHaveProperty("CLAUDE.md");

@@ -1,4 +1,5 @@
 import type {
+  ActionsPlatform,
   AgentId,
   DomainPreset,
   InitConfig,
@@ -23,6 +24,7 @@ export interface InitOptions {
   domains?: string;
   includeReferences?: boolean;
   references?: string;
+  actions?: string;
   includeMemory?: boolean;
   gitInit?: boolean;
   force?: boolean;
@@ -38,12 +40,22 @@ function resolveReferences(o: InitOptions): ReferencesType | null {
   }
   return o.includeReferences ? "notes" : null;
 }
+function resolveActions(o: InitOptions): ActionsPlatform | null {
+  if (o.actions != null && o.actions !== "") {
+    if (o.actions !== "macos") {
+      throw new Error(`Unknown actions platform: "${o.actions}". Valid: macos`);
+    }
+    return o.actions;
+  }
+  return null;
+}
 export function resolveInitConfig(o: InitOptions): InitConfig {
   return {
     dir: o.dir,
     agents: o.agents,
     domains: resolveDomains(o.domains ?? "standard"),
     references: resolveReferences(o),
+    actions: resolveActions(o),
     includeMemory: o.includeMemory ?? true,
     gitInit: o.gitInit ?? true,
     force: o.force ?? false,
