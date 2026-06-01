@@ -54,8 +54,11 @@ export function buildFileMap(cfg: InitConfig): Record<string, string> {
     files["memory/MEMORY.md"] = render(FIXED.memoryIndex, v);
     files["memory/_how-memory-works.md"] = render(FIXED.memoryProtocol, v);
   }
-  if (cfg.includeReferences)
-    files["references/external-store.md"] = render(FIXED.externalStore, v);
+  if (cfg.references) {
+    files["references/notes-store.md"] = render(FIXED.notesStore, v);
+    if (cfg.references === "obsidian")
+      files["references/obsidian.md"] = render(FIXED.obsidian, v);
+  }
 
   return files;
 }

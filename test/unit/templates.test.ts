@@ -49,7 +49,8 @@ describe("fixed templates", () => {
       "security",
       "readme",
       "gitignore",
-      "externalStore",
+      "notesStore",
+      "obsidian",
     ];
     for (const k of keys) {
       expect(typeof FIXED[k]).toBe("string");
@@ -64,7 +65,7 @@ describe("fixed templates", () => {
     expect(FIXED.gitignore).toMatch(/\.env/);
   });
 });
-describe("guide + external store reframe", () => {
+describe("guide reframe", () => {
   it("guide frames the command center as an orchestrator with a first-session step", () => {
     const g = FIXED.guide;
     expect(g).toMatch(/orchestrate everything/i);
@@ -72,10 +73,6 @@ describe("guide + external store reframe", () => {
     expect(g).toMatch(/help me set up/i);
     expect(g).toContain("_how-memory-works.md");
     expect(g).toContain("domains/_example.md");
-  });
-  it("external store is read AND write (capture notes/analysis)", () => {
-    expect(FIXED.externalStore).toMatch(/reads and writes/i);
-    expect(FIXED.externalStore).toMatch(/\*\*write\*\* notes/i);
   });
 });
 describe("example capsule template", () => {

@@ -32,7 +32,7 @@ describe("resolveInitConfig", () => {
     expect(c.dir).toBe("x");
     expect(c.domains).toEqual(["work", "side-project"]);
     expect(c.includeMemory).toBe(true);
-    expect(c.includeReferences).toBe(false);
+    expect(c.references).toBe(null);
     expect(c.gitInit).toBe(true);
     expect(c.force).toBe(false);
   });
@@ -41,13 +41,13 @@ describe("resolveInitConfig", () => {
       dir: "x",
       agents: ["claude"],
       domains: "full",
-      includeReferences: true,
+      references: "obsidian",
       includeMemory: false,
       gitInit: false,
       force: true,
     });
     expect(c.domains).toEqual(["work", "side-project", "personal", "home"]);
-    expect(c.includeReferences).toBe(true);
+    expect(c.references).toBe("obsidian");
     expect(c.includeMemory).toBe(false);
     expect(c.gitInit).toBe(false);
     expect(c.force).toBe(true);

@@ -1,4 +1,9 @@
-import type { AgentId, DomainPreset, InitConfig } from "./types.js";
+import type {
+  AgentId,
+  DomainPreset,
+  InitConfig,
+  ReferencesType,
+} from "./types.js";
 
 const PRESETS: Record<DomainPreset, string[]> = {
   minimal: ["work"],
@@ -17,16 +22,28 @@ export interface InitOptions {
   agents: AgentId[];
   domains?: string;
   includeReferences?: boolean;
+  references?: string;
   includeMemory?: boolean;
   gitInit?: boolean;
   force?: boolean;
+}
+function resolveReferences(o: InitOptions): ReferencesType | null {
+  if (o.references != null && o.references !== "") {
+    if (o.references !== "notes" && o.references !== "obsidian") {
+      throw new Error(
+        `Unknown references type: "${o.references}". Valid: notes, obsidian`,
+      );
+    }
+    return o.references;
+  }
+  return o.includeReferences ? "notes" : null;
 }
 export function resolveInitConfig(o: InitOptions): InitConfig {
   return {
     dir: o.dir,
     agents: o.agents,
     domains: resolveDomains(o.domains ?? "standard"),
-    includeReferences: o.includeReferences ?? false,
+    references: resolveReferences(o),
     includeMemory: o.includeMemory ?? true,
     gitInit: o.gitInit ?? true,
     force: o.force ?? false,
