@@ -22,7 +22,7 @@ Versioning and publishing are managed with [Changesets](https://github.com/chang
 ## Auth
 
 - The repo secret **`NPM_TOKEN`** (npm Automation token) authenticates the publish. It also enables npm provenance via `NPM_CONFIG_PROVENANCE` + `id-token: write`.
-- The current token **expires 29-08-2026** — rotate before then: generate a new Automation token on npmjs.com, `gh secret set NPM_TOKEN`, and update the credential notes (vault + kainext-hq).
+- The current token **expires 29-08-2026** — rotate before then: generate a new Automation token on npmjs.com, `gh secret set NPM_TOKEN`, and update wherever you keep your credential notes.
 
 ## Safety note
 
