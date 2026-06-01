@@ -91,18 +91,6 @@ See \`GUIDE.md\` for the methodology primer.
 .DS_Store
 *.log
 `,
-  externalStore: `# Reference — external store (notes / analysis)
-
-> Optional capsule: an external store (a notes app, a wiki, a folder) the agent **reads and writes** — a place to capture notes and analysis, not only cite.
-
-## Where it lives
-- Path or URL of your store (e.g. \`~/notes/\`).
-
-## Rules
-- Read for context; **write** notes and analysis here when that's the task.
-- Writes go through the safety gate; reflect and link, don't duplicate what already lives in code.
-- Keep secrets out (see \`SECURITY.md\`).
-`,
   notesStore: `# Notes store — schema & operating manual ({{name}})
 
 > Optional capsule (\`--references notes\`). Your external knowledge base — a notes app, a wiki, a folder of markdown — that the agent **reads and writes** to capture analysis, research, and source material. This file is the **schema**: the operating manual the agent follows for the store.

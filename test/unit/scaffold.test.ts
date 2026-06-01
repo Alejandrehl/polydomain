@@ -29,13 +29,28 @@ describe("buildFileMap", () => {
     expect(m).toHaveProperty("domains/work.md");
     expect(m).toHaveProperty("domains/side-project.md");
     expect(m).not.toHaveProperty("domains/personal.md");
+    expect(m).not.toHaveProperty("references/notes-store.md");
+    expect(m).not.toHaveProperty("references/obsidian.md");
     expect(m).not.toHaveProperty("references/external-store.md");
   });
-  it("full + references emits all capsules and the reference", () => {
-    const m = buildFileMap(cfg({ domains: "full", includeReferences: true }));
-    expect(m).toHaveProperty("domains/personal.md");
-    expect(m).toHaveProperty("domains/home.md");
-    expect(m).toHaveProperty("references/external-store.md");
+  it("references:notes emits notes-store only; obsidian emits both; external-store never", () => {
+    const notes = buildFileMap(cfg({ domains: "full", references: "notes" }));
+    expect(notes).toHaveProperty("references/notes-store.md");
+    expect(notes).not.toHaveProperty("references/obsidian.md");
+    expect(notes).not.toHaveProperty("references/external-store.md");
+    const obs = buildFileMap(cfg({ references: "obsidian" }));
+    expect(obs).toHaveProperty("references/notes-store.md");
+    expect(obs).toHaveProperty("references/obsidian.md");
+  });
+  it("--with-references (includeReferences) is an alias for references:notes", () => {
+    const m = buildFileMap(cfg({ includeReferences: true }));
+    expect(m).toHaveProperty("references/notes-store.md");
+    expect(m).not.toHaveProperty("references/obsidian.md");
+  });
+  it("rejects an unknown references type", () => {
+    expect(() => cfg({ references: "bogus" })).toThrow(
+      /unknown references type/i,
+    );
   });
   it("renders an entrypoint per agent", () => {
     const m = buildFileMap(cfg({ agents: ["claude", "gemini"] }));
