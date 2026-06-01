@@ -6,13 +6,13 @@ description: Scaffold a command center in 30 seconds.
 ## Scaffold a command center
 
 ```bash
-npx <TOOL_NAME> init my-center
+npx polydomain init my-center
 ```
 
 `init` asks which agent(s) will operate the center (Claude Code, Codex, Gemini, or Cursor) and scaffolds the rest with sensible defaults. To skip the prompt:
 
 ```bash
-npx <TOOL_NAME> init my-center --yes --agent claude
+npx polydomain init my-center --yes --agent claude
 ```
 
 ## What you get
@@ -42,7 +42,7 @@ Open your agent's entrypoint (e.g. `CLAUDE.md`) and start a session. The router 
 
 ```bash
 cd my-center
-npx <TOOL_NAME> add domain clients
+npx polydomain add domain clients
 ```
 
 This creates `domains/clients.md` and registers it. See the [CLI reference](/polydomain/reference/cli/) for all commands and flags.

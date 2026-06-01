@@ -21,4 +21,4 @@ labels: bug
 
 - OS:
 - Node version:
-- `<TOOL_NAME>` version:
+- `polydomain` version:
