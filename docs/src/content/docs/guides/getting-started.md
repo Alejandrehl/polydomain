@@ -34,6 +34,8 @@ my-center/
 
 The entrypoint filename matches your agent: `CLAUDE.md` for Claude Code, `AGENTS.md` for Codex, `GEMINI.md` for Gemini, `.cursor/rules/command-center.mdc` for Cursor.
 
+Two things make it useful immediately: `domains/_example.md` is a filled **model** showing what a good capsule looks like (read it, then adapt or delete), and `memory/_how-memory-works.md` teaches your agent how to remember across sessions. On your first session, just tell your agent **"help me set up my command center."**
+
 ## Use it
 
 Open your agent's entrypoint (e.g. `CLAUDE.md`) and start a session. The router tells the agent how to find the right capsule, which rules always apply, and to propose a plan before acting.
