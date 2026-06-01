@@ -41,7 +41,10 @@ cli
   });
 
 cli
-  .command("add <kind> <value>", "Add a domain, an agent, a reference, or actions")
+  .command(
+    "add <kind> <value>",
+    "Add a domain, an agent, a reference, or actions",
+  )
   .action(async (kind: string, value: string) => {
     try {
       if (kind === "domain") await runAddDomain(value);
