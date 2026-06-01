@@ -11,6 +11,9 @@ export function addAgentTo(root: string, agent: string): void {
       `Unknown agent: ${agent} (valid: ${ALL_AGENTS.join(", ")})`,
     );
   }
+  if (!existsSync(join(root, "domains/_registry.md"))) {
+    throw new Error("Not a command center (domains/_registry.md missing).");
+  }
   const rel = entrypointPath(agent as AgentId);
   const full = join(root, rel);
   mkdirSync(dirname(full), { recursive: true });

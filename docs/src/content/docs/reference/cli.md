@@ -25,7 +25,7 @@ Add a domain capsule (`domains/<name>.md`) and register it in `domains/_registry
 
 ## `add agent <name>`
 
-Add an entrypoint for another agent (`claude`, `codex`, `gemini`, `cursor`). Fails if that agent's entrypoint already exists.
+Add an entrypoint for another agent (`claude`, `codex`, `gemini`, `cursor`). Run it from inside a command center. Fails if that agent's entrypoint already exists.
 
 ## `--help` · `--version`
 
