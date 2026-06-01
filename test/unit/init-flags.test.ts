@@ -38,4 +38,40 @@ describe("runInit (non-interactive with --yes)", () => {
       true,
     );
   });
+  it("--references obsidian scaffolds both reference files", async () => {
+    const dir = join(mkdtempSync(join(tmpdir(), "cd-")), "obs");
+    await runInit({
+      dir,
+      yes: true,
+      agent: "claude",
+      references: "obsidian",
+      noGit: true,
+    });
+    expect(existsSync(join(dir, "references/notes-store.md"))).toBe(true);
+    expect(existsSync(join(dir, "references/obsidian.md"))).toBe(true);
+  });
+  it("--references notes scaffolds only the core", async () => {
+    const dir = join(mkdtempSync(join(tmpdir(), "cd-")), "n");
+    await runInit({
+      dir,
+      yes: true,
+      agent: "claude",
+      references: "notes",
+      noGit: true,
+    });
+    expect(existsSync(join(dir, "references/notes-store.md"))).toBe(true);
+    expect(existsSync(join(dir, "references/obsidian.md"))).toBe(false);
+  });
+  it("rejects an unknown --references type", async () => {
+    const dir = join(mkdtempSync(join(tmpdir(), "cd-")), "bad");
+    await expect(
+      runInit({
+        dir,
+        yes: true,
+        agent: "claude",
+        references: "bogus",
+        noGit: true,
+      }),
+    ).rejects.toThrow(/unknown references type/i);
+  });
 });

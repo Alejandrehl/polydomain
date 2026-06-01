@@ -95,6 +95,37 @@ const e4 = runExpectError(["frobnicate"]);
 if (!e4 || e4.status === 0 || !/unknown command/i.test(e4.out))
   fail("unknown command should exit non-zero with a clear message");
 
+// 9. init --references obsidian scaffolds both capsules
+const od = join(mkdtempSync(join(tmpdir(), "smoke-")), "obs");
+run(
+  [
+    "init",
+    od,
+    "--yes",
+    "--agent",
+    "claude",
+    "--references",
+    "obsidian",
+    "--no-git",
+  ],
+  { stdio: "pipe" },
+);
+for (const f of ["references/notes-store.md", "references/obsidian.md"]) {
+  if (!existsSync(join(od, f))) fail(`references: missing ${f}`);
+}
+
+// 10. error: unknown references type
+const e5 = runExpectError([
+  "init",
+  join(mkdtempSync(join(tmpdir(), "smoke-")), "x"),
+  "--yes",
+  "--references",
+  "bogus",
+  "--no-git",
+]);
+if (!e5 || e5.status === 0 || !/unknown references type/i.test(e5.out))
+  fail("unknown references type should exit non-zero with a message");
+
 if (failures > 0) {
   console.error(`smoke FAILED (${failures} check(s))`);
   process.exit(1);
