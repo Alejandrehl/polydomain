@@ -126,12 +126,30 @@ const e5 = runExpectError([
 if (!e5 || e5.status === 0 || !/unknown references type/i.test(e5.out))
   fail("unknown references type should exit non-zero with a message");
 
-// 11. adopt in a temp git repo: creates branch + MIGRATION.md
+// 11. adopt in a temp git repo (with a commit): creates branch + MIGRATION.md, uncommitted
 const gd = mkdtempSync(join(tmpdir(), "smoke-adopt-"));
 execSync("git init", { cwd: gd, stdio: "ignore" });
+execSync("git config user.email t@t && git config user.name t", {
+  cwd: gd,
+  stdio: "ignore",
+});
+execSync("git commit --allow-empty -m init", { cwd: gd, stdio: "ignore" });
 run(["adopt"], { cwd: gd, stdio: "pipe" });
 if (!existsSync(join(gd, "MIGRATION.md")))
   fail("adopt: MIGRATION.md not written");
+if (
+  execSync("git rev-parse --abbrev-ref HEAD", {
+    cwd: gd,
+    encoding: "utf8",
+  }).trim() !== "adopt/standard"
+)
+  fail("adopt: not on adopt/standard branch");
+if (
+  !/\?\? MIGRATION\.md/.test(
+    execSync("git status --porcelain", { cwd: gd, encoding: "utf8" }),
+  )
+)
+  fail("adopt: MIGRATION.md should be uncommitted");
 
 // 12. adopt in a non-git dir -> non-zero + message
 const nd = mkdtempSync(join(tmpdir(), "smoke-plain-"));

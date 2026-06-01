@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import {
   assertCleanTree,
   assertGitRepo,
+  assertHasCommits,
   branchExists,
   createBranch,
 } from "../../src/core/git.js";
@@ -41,6 +42,12 @@ describe("git safety helpers", () => {
     writeFileSync(join(dir, "a.txt"), "x");
     execSync("git add a.txt", { cwd: dir, stdio: "ignore" });
     expect(() => assertCleanTree(dir)).toThrow(/not clean/i);
+  });
+  it("assertHasCommits throws in an empty repo, passes once committed", () => {
+    const empty = mkdtempSync(join(tmpdir(), "empty-"));
+    execSync("git init", { cwd: empty, stdio: "ignore" });
+    expect(() => assertHasCommits(empty)).toThrow(/at least one commit/i);
+    expect(() => assertHasCommits(gitRepo())).not.toThrow();
   });
   it("branchExists reflects branch presence", () => {
     const dir = gitRepo();
