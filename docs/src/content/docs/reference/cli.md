@@ -15,6 +15,7 @@ Scaffold a new command center in `[dir]` (defaults to the current directory). Pr
 | `--domains <spec>` | `minimal`, `standard`, `full`, or a comma-separated list (default: `standard` = `work,side-project`) |
 | `--with-references` | Alias for `--references notes` |
 | `--references <type>` | Add a notes-store capsule: `notes` (generic core) or `obsidian` (core + Obsidian conventions) |
+| `--actions <platform>` | Add an actions capsule (`macos`) — recipes for reminders/calendar/email |
 | `--no-memory` | Skip the `memory/` directory |
 | `--no-git` | Skip `git init` |
 | `--force` | Write into a non-empty directory |
@@ -35,6 +36,10 @@ Add a notes-store capsule to an existing command center: `notes` (the generic `r
 ## `adopt`
 
 Bring an existing repo up to the command-center standard. Run it from inside a git repo with a clean working tree. It creates the `adopt/standard` branch and writes `MIGRATION.md` (a playbook your agent follows); it writes nothing else and edits nothing. Fails if the directory is not a git repo, the tree is dirty, or the branch already exists. See [Adopt an existing repo](/polydomain/guides/adopt/).
+
+## `add actions <platform>`
+
+Add an actions capsule to an existing command center (`macos`). Generates `actions/macos.md` with verified `osascript`/Mail.app recipes for reminders, calendar events, and email. Run it from inside a command center. Fails on an unknown platform, outside a center, or if the capsule already exists. See [Actions (macOS)](/polydomain/guides/actions/).
 
 ## `--help` · `--version`
 

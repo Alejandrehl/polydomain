@@ -14,6 +14,7 @@ export default defineConfig({
           { label: "Memory", link: "/guides/memory/" },
           { label: "Notes store (Obsidian)", link: "/guides/notes-store/" },
           { label: "Adopt an existing repo", link: "/guides/adopt/" },
+          { label: "Actions (macOS)", link: "/guides/actions/" },
         ] },
         { label: "The pattern", items: [
           { label: "Overview", link: "/pattern/overview/" },
