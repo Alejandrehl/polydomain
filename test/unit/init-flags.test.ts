@@ -74,4 +74,27 @@ describe("runInit (non-interactive with --yes)", () => {
       }),
     ).rejects.toThrow(/unknown references type/i);
   });
+  it("--actions macos scaffolds the actions capsule", async () => {
+    const dir = join(mkdtempSync(join(tmpdir(), "cd-")), "act");
+    await runInit({
+      dir,
+      yes: true,
+      agent: "claude",
+      actions: "macos",
+      noGit: true,
+    });
+    expect(existsSync(join(dir, "actions/macos.md"))).toBe(true);
+  });
+  it("rejects an unknown --actions platform", async () => {
+    const dir = join(mkdtempSync(join(tmpdir(), "cd-")), "actbad");
+    await expect(
+      runInit({
+        dir,
+        yes: true,
+        agent: "claude",
+        actions: "windows",
+        noGit: true,
+      }),
+    ).rejects.toThrow(/unknown actions platform/i);
+  });
 });

@@ -157,6 +157,29 @@ const e6 = runExpectError(["adopt"], { cwd: nd });
 if (!e6 || e6.status === 0 || !/needs a git repository/i.test(e6.out))
   fail("adopt outside a git repo should exit non-zero with a message");
 
+// 13. init --actions macos scaffolds the actions capsule
+const ad = join(mkdtempSync(join(tmpdir(), "smoke-")), "act");
+run(
+  ["init", ad, "--yes", "--agent", "claude", "--actions", "macos", "--no-git"],
+  {
+    stdio: "pipe",
+  },
+);
+if (!existsSync(join(ad, "actions/macos.md")))
+  fail("actions: actions/macos.md not written");
+
+// 14. error: unknown actions platform
+const e7 = runExpectError([
+  "init",
+  join(mkdtempSync(join(tmpdir(), "smoke-")), "x"),
+  "--yes",
+  "--actions",
+  "windows",
+  "--no-git",
+]);
+if (!e7 || e7.status === 0 || !/unknown actions platform/i.test(e7.out))
+  fail("unknown actions platform should exit non-zero with a message");
+
 if (failures > 0) {
   console.error(`smoke FAILED (${failures} check(s))`);
   process.exit(1);
