@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { render } from "../../src/core/tokens.js";
+import { ACTIONS_MACOS } from "../../src/templates/actions.js";
 import {
   CAPSULES,
   EXAMPLE_CAPSULE,
@@ -192,5 +193,26 @@ describe("migration playbook template", () => {
     expect(m).toContain("git diff");
     expect(m).toContain("Anatomy of a command center");
     expect(m).toMatch(/plan . review . approve . execute/i);
+  });
+});
+describe("actions macOS template", () => {
+  it("encodes the safety tiers, the Automation prerequisite, the three recipes, and the deferrals", () => {
+    const a = ACTIONS_MACOS;
+    expect(a).toContain("{{name}}");
+    expect(a).toMatch(/--actions macos/);
+    expect(a).toMatch(/Tier 1/);
+    expect(a).toMatch(/Tier 2/);
+    expect(a).toMatch(/no confirmation needed/i);
+    expect(a).toMatch(/draft only/i);
+    expect(a).toMatch(/do NOT send/i);
+    expect(a).toMatch(/-1743/);
+    expect(a).toMatch(/Privacy & Security → Automation/);
+    expect(a).toMatch(/Terminal, iTerm, VS Code/);
+    for (const app of ["Reminders", "Calendar", "Mail"])
+      expect(a).toContain(`application "${app}"`);
+    expect(a).toMatch(/by components/i);
+    expect(a).toMatch(/opt-in/i);
+    expect(a).toMatch(/WhatsApp/);
+    expect(a).toMatch(/macOS-first/);
   });
 });
