@@ -1,6 +1,6 @@
 ---
 title: Overview
-description: What <TOOL_NAME> is and the problem it solves.
+description: What polydomain is and the problem it solves.
 ---
 
 AI coding agents are powerful, but they start every session from zero. The moment you switch projects, you re-explain who you are, what you're working on, and how the pieces fit. The more contexts you juggle — a day job, a couple of side projects, personal ops — the more time you spend re-briefing the agent instead of working.
@@ -9,7 +9,7 @@ The usual answer is a per-project instruction file (a `CLAUDE.md`, `AGENTS.md`, 
 
 ## A command center instead of scattered files
 
-`<TOOL_NAME>` scaffolds a single **command center** — one repo your agent operates from, across all your domains. It generates:
+`polydomain` scaffolds a single **command center** — one repo your agent operates from, across all your domains. It generates:
 
 - a **thin router** (your agent's entrypoint) that every session reads first;
 - one **capsule** per domain (`domains/*.md`) carrying that domain's context, rules, and state;

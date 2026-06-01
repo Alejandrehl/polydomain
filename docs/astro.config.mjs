@@ -6,7 +6,7 @@ export default defineConfig({
   base: "/polydomain/",
   integrations: [
     starlight({
-      title: "<TOOL_NAME>",
+      title: "polydomain",
       social: [{ icon: "github", label: "GitHub", href: "https://github.com/Alejandrehl/polydomain" }],
       sidebar: [
         { label: "Guides", items: [{ label: "Getting started", link: "/guides/getting-started/" }] },

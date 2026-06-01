@@ -1,4 +1,4 @@
-# <TOOL_NAME>
+# polydomain
 
 > A `npx` scaffolder that turns your AI coding agent into a multi-domain command center — the **Capsule architecture**.
 
@@ -8,14 +8,14 @@
 
 AI coding agents are powerful, but they suffer from context amnesia: every new project requires re-explaining who you are, what you're working on, and how the pieces fit together. The more domains you juggle — work, side projects, personal ops — the worse it gets.
 
-`<TOOL_NAME>` solves this with a single scaffold command. It generates a **thin router** (`CLAUDE.md`, `AGENTS.md`, or equivalent) that your agent reads at session start, plus a set of **capsules** — one lean Markdown file per domain — that carry the context, decisions, and constraints for that slice of your life. A built-in **safety gate** keeps the agent honest: it proposes a plan and waits for your approval before executing. One agent, many domains, zero repetition.
+`polydomain` solves this with a single scaffold command. It generates a **thin router** (`CLAUDE.md`, `AGENTS.md`, or equivalent) that your agent reads at session start, plus a set of **capsules** — one lean Markdown file per domain — that carry the context, decisions, and constraints for that slice of your life. A built-in **safety gate** keeps the agent honest: it proposes a plan and waits for your approval before executing. One agent, many domains, zero repetition.
 
 ---
 
 ## Quickstart
 
 ```bash
-npx <TOOL_NAME> init my-center
+npx polydomain init my-center
 ```
 
 Then open your agent's entrypoint (e.g. `CLAUDE.md`) and say hi. The router is ready.
@@ -46,7 +46,7 @@ Then open your agent's entrypoint (e.g. `CLAUDE.md`) and say hi. The router is r
 
 ## No telemetry. No network calls.
 
-Templates are bundled with the CLI. `<TOOL_NAME>` **never phones home** — no analytics, no usage tracking, no external requests of any kind. What you scaffold stays entirely on your machine.
+Templates are bundled with the CLI. `polydomain` **never phones home** — no analytics, no usage tracking, no external requests of any kind. What you scaffold stays entirely on your machine.
 
 ---
 
@@ -60,7 +60,7 @@ A command center has three layers:
 
 The result is an agent that knows everything about your context without needing to be re-briefed — and without mixing context between domains.
 
-Full architecture docs: [https://alejandrehl.github.io/<TOOL_NAME>/](https://alejandrehl.github.io/<TOOL_NAME>/)
+Full architecture docs: [https://alejandrehl.github.io/polydomain/](https://alejandrehl.github.io/polydomain/)
 
 ---
 

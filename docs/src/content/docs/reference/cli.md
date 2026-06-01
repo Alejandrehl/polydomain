@@ -3,7 +3,7 @@ title: CLI reference
 description: Commands and flags.
 ---
 
-`<TOOL_NAME>` makes no network calls and collects no telemetry — its templates are bundled with the CLI.
+`polydomain` makes no network calls and collects no telemetry — its templates are bundled with the CLI.
 
 ## `init [dir]`
 

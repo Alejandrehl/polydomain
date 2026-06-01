@@ -16,7 +16,7 @@ Asymmetric governance keeps rigor where it matters and speed elsewhere.
 
 This command center follows the **Capsule architecture**: one agent operates across many domains via a thin router + composable capsules, with persistent memory and a plan→review→approve→execute safety gate.
 
-Full methodology: see the \`<TOOL_NAME>\` docs site. Quick map:
+Full methodology: see the \`polydomain\` docs site. Quick map:
 - your agent's entrypoint (e.g. \`CLAUDE.md\`) — the thin router (startup, transversal rules, hierarchy).
 - \`domains/\` — one capsule per domain; \`_registry.md\` indexes them.
 - \`memory/\` — durable facts + index.
@@ -32,10 +32,10 @@ Full methodology: see the \`<TOOL_NAME>\` docs site. Quick map:
 `,
   readme: `# {{name}}
 
-A command center built with the **Capsule architecture** (\`<TOOL_NAME>\`): one AI coding agent, many domains, with memory and a safety gate.
+A command center built with the **Capsule architecture** (\`polydomain\`): one AI coding agent, many domains, with memory and a safety gate.
 
 ## Start
-Open your agent's entrypoint (e.g. \`CLAUDE.md\`) and say hi. Add a domain with \`<TOOL_NAME> add domain <name>\`.
+Open your agent's entrypoint (e.g. \`CLAUDE.md\`) and say hi. Add a domain with \`polydomain add domain <name>\`.
 
 ## Layout
 - your agent's entrypoint (e.g. \`CLAUDE.md\`) — the router · \`domains/\` — capsules · \`memory/\` — facts · \`workspace/\` — plans · \`governance.md\`.
