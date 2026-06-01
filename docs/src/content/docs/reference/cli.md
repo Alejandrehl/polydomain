@@ -13,7 +13,8 @@ Scaffold a new command center in `[dir]` (defaults to the current directory). Pr
 |---|---|
 | `--agent <list>` | Comma-separated agents: `claude`, `codex`, `gemini`, `cursor` (default: `claude`) |
 | `--domains <spec>` | `minimal`, `standard`, `full`, or a comma-separated list (default: `standard` = `work,side-project`) |
-| `--with-references` | Include a `references/` capsule for an external store |
+| `--with-references` | Alias for `--references notes` |
+| `--references <type>` | Add a notes-store capsule: `notes` (generic core) or `obsidian` (core + Obsidian conventions) |
 | `--no-memory` | Skip the `memory/` directory |
 | `--no-git` | Skip `git init` |
 | `--force` | Write into a non-empty directory |
@@ -26,6 +27,10 @@ Add a domain capsule (`domains/<name>.md`) and register it in `domains/_registry
 ## `add agent <name>`
 
 Add an entrypoint for another agent (`claude`, `codex`, `gemini`, `cursor`). Run it from inside a command center. Fails if that agent's entrypoint already exists.
+
+## `add reference <type>`
+
+Add a notes-store capsule to an existing command center: `notes` (the generic `references/notes-store.md` core) or `obsidian` (the core plus `references/obsidian.md`). Run it from inside a command center. Fails on an unknown type or if the capsule already exists.
 
 ## `--help` · `--version`
 

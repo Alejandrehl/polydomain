@@ -15,6 +15,14 @@ npx polydomain init my-center
 npx polydomain init my-center --yes --agent claude
 ```
 
+To include a notes store — an Obsidian vault or any markdown folder your agent reads and writes — add `--references obsidian` (or `--references notes` for the generic core):
+
+```bash
+npx polydomain init my-center --references obsidian
+```
+
+See [Connect a notes store](/polydomain/guides/notes-store/).
+
 ## What you get
 
 ```
