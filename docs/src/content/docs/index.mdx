@@ -1,14 +1,26 @@
 ---
 title: polydomain
-description: Turn your AI coding agent into a multi-domain command center.
+description: Scaffold a command center for your AI coding agent — router, capsules, persistent memory, and an optional Obsidian/notes knowledge base.
 template: splash
 hero:
-  tagline: One agent, many domains. A npx scaffolder for the Capsule architecture.
+  tagline: One agent, many domains, persistent memory. A npx scaffolder for the Capsule architecture — with an optional Obsidian/notes knowledge base and lossless adoption of existing repos.
   actions:
     - text: Get started
       link: /polydomain/guides/getting-started/
       icon: right-arrow
-    - text: The 7 principles
-      link: /polydomain/pattern/principles/
+    - text: Anatomy of a command center
+      link: /polydomain/pattern/anatomy/
       variant: minimal
 ---
+
+## What it gives your agent
+
+- **A router + capsules** — one Markdown file per domain; the agent loads only what each session needs, with no cross-domain bleed.
+- **Persistent memory** — a portable protocol for the durable facts your agent should recall every session. See [Memory](/polydomain/guides/memory/).
+- **An optional notes/Obsidian knowledge base** — an organized, navigable store the agent reads and writes for near-infinite context. See [Connect a notes store](/polydomain/guides/notes-store/).
+- **Lossless adoption** — already have a repo? [`adopt`](/polydomain/guides/adopt/) brings it up to the standard on a git safety branch, losslessly.
+- **A safety gate** — `plan → review → approve → execute`. No runtime, no telemetry: it's an operating manual your agent reads.
+
+```bash
+npx polydomain init my-center --references obsidian
+```
