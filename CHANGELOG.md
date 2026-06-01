@@ -1,5 +1,15 @@
 # polydomain
 
+## 0.4.1
+
+### Patch Changes
+
+- 785f454: Refresh the user-facing surface for the current feature set (README, npm description, docs landing).
+
+  - README rewritten to reflect v0.2–v0.4: persistent memory, the optional notes/Obsidian knowledge base, the `add reference` and `adopt` commands, the `--references` flag, and the seven-part command-center standard (the old README only described the v0.1 scaffolder). Clarifies the no-runtime/no-telemetry model up front.
+  - npm `description` + keywords updated to mention memory and Obsidian/notes.
+  - Docs landing page lists the actual capabilities and links the memory, notes-store, adopt, and anatomy pages.
+
 ## 0.4.0
 
 ### Minor Changes
