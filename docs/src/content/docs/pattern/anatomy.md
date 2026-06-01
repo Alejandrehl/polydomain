@@ -9,6 +9,7 @@ A command center is a markdown repo your agent reads as its operating manual. It
 2. **Domains** — on-demand capsules in `domains/`, plus `domains/_registry.md`. Each capsule declares its entry point, where its work lives, its rules, its permissions, and its recent state.
 3. **Memory** — `memory/` holds durable facts, indexed by `memory/MEMORY.md` and governed by `memory/_how-memory-works.md`.
 4. **Notes store** *(optional)* — `references/` holds the schema for an external knowledge base the agent navigates on demand.
+4b. **Actions** *(optional, macOS-first)* — `actions/macos.md` gives the agent verified recipes to perform reminders, calendar events, and email, under a tiered safety model (local actions directly; outward actions like email draft-first).
 5. **Governance** — `governance.md`: what changes need a ritual, and the source-of-truth hierarchy.
 6. **Security** — `SECURITY.md`: keep secrets out of the repo.
 7. **Workspace** — `workspace/`: dated scratch space for plans.

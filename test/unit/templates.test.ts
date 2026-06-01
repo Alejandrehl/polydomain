@@ -216,3 +216,10 @@ describe("actions macOS template", () => {
     expect(a).toMatch(/macOS-first/);
   });
 });
+describe("router actions wiring", () => {
+  it("router points to the actions capsule and onboarding mentions add actions", () => {
+    expect(ROUTER).toMatch(/actions\//);
+    expect(ROUTER).toMatch(/reminders.*calendar.*email/i);
+    expect(ROUTER).toMatch(/add actions/i);
+  });
+});
