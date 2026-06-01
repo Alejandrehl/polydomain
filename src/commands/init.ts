@@ -10,6 +10,7 @@ export interface InitCliOptions {
   agent?: string;
   domains?: string;
   withReferences?: boolean;
+  references?: string;
   noMemory?: boolean;
   noGit?: boolean;
   force?: boolean;
@@ -43,6 +44,7 @@ export async function runInit(o: InitCliOptions): Promise<void> {
     agents,
     domains: o.domains,
     includeReferences: o.withReferences,
+    references: o.references,
     includeMemory: o.noMemory ? false : undefined,
     gitInit: o.noGit ? false : undefined,
     force: o.force,

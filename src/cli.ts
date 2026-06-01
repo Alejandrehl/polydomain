@@ -1,6 +1,7 @@
 import { cac } from "cac";
 import { runAddAgent } from "./commands/add-agent.js";
 import { runAddDomain } from "./commands/add-domain.js";
+import { runAddReference } from "./commands/add-reference.js";
 import { runInit } from "./commands/init.js";
 import { TOOL_NAME, VERSION } from "./meta.js";
 
@@ -10,7 +11,8 @@ cli
   .command("init [dir]", "Scaffold a command center")
   .option("--agent <list>", "Target agent(s): claude,codex,gemini,cursor")
   .option("--domains <spec>", "minimal|standard|full or a comma list")
-  .option("--with-references", "Include the external-store capsule")
+  .option("--with-references", "Alias for --references notes")
+  .option("--references <type>", "Notes store capsule: notes|obsidian")
   .option("--no-memory", "Skip the memory system")
   .option("--no-git", "Skip git init")
   .option("--force", "Write into a non-empty directory")
@@ -23,6 +25,7 @@ cli
         agent: o.agent as string,
         domains: o.domains as string,
         withReferences: o.withReferences as boolean,
+        references: o.references as string,
         noMemory: o.memory === false,
         noGit: o.git === false,
         force: o.force as boolean,
@@ -34,13 +37,16 @@ cli
   });
 
 cli
-  .command("add <kind> <value>", "Add a domain or an agent")
+  .command("add <kind> <value>", "Add a domain, an agent, or a reference")
   .action(async (kind: string, value: string) => {
     try {
       if (kind === "domain") await runAddDomain(value);
       else if (kind === "agent") await runAddAgent(value);
+      else if (kind === "reference") await runAddReference(value);
       else {
-        console.error(`Unknown kind: "${kind}". Valid: domain, agent`);
+        console.error(
+          `Unknown kind: "${kind}". Valid: domain, agent, reference`,
+        );
         process.exit(1);
       }
     } catch (e) {
