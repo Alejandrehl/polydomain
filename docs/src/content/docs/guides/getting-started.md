@@ -56,3 +56,12 @@ npx polydomain add domain clients
 ```
 
 This creates `domains/clients.md` and registers it. See the [CLI reference](/polydomain/reference/cli/) for all commands and flags.
+
+## Already have a repo?
+
+To bring an existing repo (notes, docs, a knowledge base) up to the standard without losing anything, use [`adopt`](/polydomain/guides/adopt/):
+
+```bash
+cd my-existing-repo
+npx polydomain adopt
+```

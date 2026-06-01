@@ -13,6 +13,7 @@ export default defineConfig({
           { label: "Getting started", link: "/guides/getting-started/" },
           { label: "Memory", link: "/guides/memory/" },
           { label: "Notes store (Obsidian)", link: "/guides/notes-store/" },
+          { label: "Adopt an existing repo", link: "/guides/adopt/" },
         ] },
         { label: "The pattern", items: [
           { label: "Overview", link: "/pattern/overview/" },
