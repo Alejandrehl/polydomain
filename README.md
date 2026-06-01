@@ -50,6 +50,10 @@ A command center is **seven parts**, each a small Markdown file or folder ([full
 | **Workspace** | Dated scratch space for plans. |
 | **Safety gate** | `plan → review → approve → execute`. The agent proposes; you approve; then it acts. |
 
+### Actions — macOS-first
+
+The optional **actions** layer (`actions/macos.md`) lets your agent perform **reminders, calendar events, and email** via verified `osascript`/Mail.app recipes, under a tiered safety model (local actions directly; email draft-first). It is **macOS-first** — the recipes are macOS-only. The rest of polydomain (router, capsules, memory, notes, adopt) is **cross-platform / agent-agnostic**. Other OS flavors may come later.
+
 ---
 
 ## Commands
@@ -61,6 +65,7 @@ A command center is **seven parts**, each a small Markdown file or folder ([full
 | `add agent <name>` | Add an entrypoint for another agent (`claude`, `codex`, `gemini`, `cursor`) |
 | `add reference <type>` | Add a notes-store capsule (`notes` or `obsidian`) to an existing center |
 | `adopt` | Bring an existing repo up to the standard, losslessly (safety branch + an agent playbook) |
+| `add actions <platform>` | Add an actions capsule (`macos`) — let the agent do reminders/calendar/email |
 
 ### `init` flags
 
@@ -70,6 +75,7 @@ A command center is **seven parts**, each a small Markdown file or folder ([full
 | `--domains <spec>` | `minimal` / `standard` / `full`, or a comma list (default: `standard`) |
 | `--references <type>` | Add a notes-store capsule: `notes` (generic) or `obsidian` |
 | `--with-references` | Alias for `--references notes` |
+| `--actions <platform>` | Add an actions capsule (`macos`) for reminders/calendar/email |
 | `--no-memory` | Skip the `memory/` directory |
 | `--no-git` | Skip `git init` |
 | `--force` | Write into a non-empty directory |

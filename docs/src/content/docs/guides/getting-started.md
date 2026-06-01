@@ -65,3 +65,13 @@ To bring an existing repo (notes, docs, a knowledge base) up to the standard wit
 cd my-existing-repo
 npx polydomain adopt
 ```
+
+## Let your agent act (macOS)
+
+To let the agent do reminders, calendar events, and email on macOS, add the actions layer:
+
+```bash
+npx polydomain init my-center --actions macos
+```
+
+See [Actions (macOS)](/polydomain/guides/actions/). (Actions are macOS-first; the rest of polydomain is cross-platform.)
