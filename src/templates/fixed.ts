@@ -103,4 +103,79 @@ See \`GUIDE.md\` for the methodology primer.
 - Writes go through the safety gate; reflect and link, don't duplicate what already lives in code.
 - Keep secrets out (see \`SECURITY.md\`).
 `,
+  notesStore: `# Notes store — schema & operating manual ({{name}})
+
+> Optional capsule (\`--references notes\`). Your external knowledge base — a notes app, a wiki, a folder of markdown — that the agent **reads and writes** to capture analysis, research, and source material. This file is the **schema**: the operating manual the agent follows for the store.
+
+## Where it lives
+- Path or URL of your store (e.g. \`~/notes/\`). _Fill this in._
+
+## Index hierarchy (navigate, don't load everything)
+The store is navigable in **three reads per question**:
+1. \`_index.md\` at the store root — lists **topics**, one line each.
+2. \`_index.md\` inside each topic folder — lists the topic's **notes**, one line each.
+3. the **note** itself.
+Read the root index → the topic index → the target note(s). Keeping both index levels current is what scales the store to thousands of notes without overflowing context.
+
+## Frontmatter (every note — the YAML block at the top of each file)
+
+    type: source | concept | entity | synthesis | index
+    created: YYYY-MM-DD
+    updated: YYYY-MM-DD
+    tags: [topic, ...]
+    source: where it came from (URL, doc, person) or "original"
+    confidence: high | medium | low
+
+\`confidence\` + \`updated\` let the agent judge **staleness**: a fact can be correct today and wrong after the world changes. Lower the confidence and re-verify before relying on an old note.
+
+## Page types
+- **source** — a summary of one captured source.
+- **concept** — an idea explained in your own words.
+- **entity** — a person, org, product, or place.
+- **synthesis** — a conclusion drawn across several notes.
+- **index** — a topic listing (the \`_index.md\` files).
+Rename or extend these to fit your domains.
+
+## The four operations
+- **CAPTURE** — drop a raw source into \`_inbox/\` unchanged. Never edit raw sources in place.
+- **COMPILE** — turn an inbox source into a structured note: write it under the right topic (create the topic + its \`_index.md\` if missing), add a \`## Key takeaways\` section, cross-link related notes, then update the topic index and the root index.
+- **QUERY** — answer by navigating the index hierarchy; save a valuable answer as a \`synthesis\` note.
+- **AUDIT** — scan for contradictions, orphan notes (nothing links to them), missing cross-references, and stale notes (low \`confidence\` or old \`updated\`); report findings.
+
+## Promotion (notes store ↔ source of truth)
+When a note matures into a stable fact, decision, or process, **promote** it to the source-of-truth repo for that domain (its formal, versioned record). The store is the notebook; the repo is the record. **Reflect and link — don't copy** (copies drift).
+
+## Writing (permission posture)
+- **Default: confirm before writing.** Propose the change, show the content, wait for approval.
+- **Opt-in autonomy (narrow):** you may allow append-only writes without confirmation for low-risk logs — e.g. appending to a dated session log. Keep that whitelist small; everything else stays confirm-first.
+
+## If the store isn't there
+If the store path is not present (cloud sync not materialized, headless session), mark it **unavailable**, say so explicitly, and **never invent** its contents.
+
+## Keep secrets out
+Do not store credentials here (see \`SECURITY.md\`). Connecting a store means its content is sent to the model provider as context — a deliberate choice.
+`,
+  obsidian: `# Obsidian — store specialization ({{name}})
+
+> Generated with \`--references obsidian\`. Read this **with** \`references/notes-store.md\` (the shared schema). This file adds Obsidian-specific conventions.
+
+## Vault root
+Your vault lives at a single path (e.g. \`~/vault/\`). _Fill this in._ Everything in \`notes-store.md\` applies, anchored at this root.
+
+## Wikilinks & backlinks
+- Link notes with \`[[note-name]]\` (Obsidian wikilinks), not file paths.
+- **Bidirectional:** if note A links to B, B should link back to A. The backlink graph is how you and the agent discover related context.
+
+## Sync / availability
+The vault often lives in iCloud, Dropbox, or similar and **may not be materialized** in a given session. If the vault path is absent, mark it unavailable and never invent contents (the schema's degradation rule, for the sync case).
+
+## Optional accelerators (not required)
+Plain file reads work out of the box. If your vault grows past a few hundred notes and the "three reads" pattern needs pre-filtering, you **may** add one of these — none are required and none are bundled:
+- A **filesystem** Obsidian MCP server (reads the \`.md\` files directly; no plugin, no Obsidian process needed).
+- A **REST-API** Obsidian MCP server (needs the Local REST API plugin + Obsidian running).
+- A local markdown search CLI for keyword retrieval.
+
+## Security
+Connecting your personal vault sends note content to the model provider as context. Keep credentials out of the vault; see \`SECURITY.md\`.
+`,
 } as const;
