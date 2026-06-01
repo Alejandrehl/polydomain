@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { render } from "../../src/core/tokens.js";
-import { CAPSULES, REGISTRY } from "../../src/templates/domains.js";
+import { CAPSULES, EXAMPLE_CAPSULE, REGISTRY } from "../../src/templates/domains.js";
 import { FIXED } from "../../src/templates/fixed.js";
 import { ROUTER } from "../../src/templates/router.js";
 
@@ -57,6 +57,22 @@ describe("fixed templates", () => {
   });
   it("gitignore ignores common secret files", () => {
     expect(FIXED.gitignore).toMatch(/\.env/);
+  });
+});
+describe("memory protocol template", () => {
+  it("teaches the protocol: types, frontmatter, when-not, recall, canonical/in-repo, privacy", () => {
+    const m = FIXED.memoryProtocol;
+    expect(m).toMatch(/one durable fact per file/i);
+    for (const t of ["user", "feedback", "project", "reference"]) expect(m).toContain(t);
+    expect(m).toMatch(/description:/);
+    expect(m).toMatch(/don't.*derivable from code/i);
+    expect(m).toMatch(/MEMORY\.md is the index/i);
+    expect(m).toMatch(/canonical/i);
+    expect(m).toMatch(/privacy/i);
+  });
+  it("MEMORY.md index points to the protocol", () => {
+    expect(FIXED.memoryIndex).toContain("_how-memory-works.md");
+    expect(FIXED.memoryIndex).toContain("{{name}}");
   });
 });
 describe("render leaves non-{{}} placeholders untouched", () => {
