@@ -62,7 +62,7 @@ describe("fixed templates", () => {
 describe("render leaves non-{{}} placeholders untouched", () => {
   it("keeps polydomain literal and substitutes {{name}} in the readme", () => {
     const out = render(FIXED.readme, { name: "myteam" });
-    expect(out).toContain("polydomain"); // brand token baked in a later phase, not by render()
+    expect(out).toContain("polydomain"); // tool name is plain prose — render() only touches {{...}} tokens
     expect(out).toContain("CLAUDE.md"); // entrypoint example is plain prose
     expect(out).toContain("myteam"); // {{name}} was substituted
     expect(out).not.toContain("{{name}}");

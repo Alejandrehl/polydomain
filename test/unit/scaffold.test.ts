@@ -1,4 +1,4 @@
-import { existsSync, mkdtempSync, writeFileSync } from "node:fs";
+import { chmodSync, existsSync, mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -81,6 +81,30 @@ describe("buildFileMap", () => {
     expect(() =>
       scaffold(resolveInitConfig({ dir, agents: ["claude"], gitInit: false })),
     ).toThrow(/not empty/);
+  });
+  it("runs git init when gitInit is set", () => {
+    const dir = mkdtempSync(join(tmpdir(), "cd-"));
+    scaffold(resolveInitConfig({ dir, agents: ["claude"], gitInit: true }));
+    expect(existsSync(join(dir, ".git"))).toBe(true);
+  });
+  it("gives a friendly error when the target can't be written", () => {
+    // root ignores file permissions, so this check can't be exercised as root
+    if (typeof process.getuid === "function" && process.getuid() === 0) return;
+    const parent = mkdtempSync(join(tmpdir(), "ro-"));
+    chmodSync(parent, 0o555);
+    try {
+      expect(() =>
+        scaffold(
+          resolveInitConfig({
+            dir: join(parent, "sub"),
+            agents: ["claude"],
+            gitInit: false,
+          }),
+        ),
+      ).toThrow(/permission denied/i);
+    } finally {
+      chmodSync(parent, 0o755);
+    }
   });
   it("registry lists exactly the generated domains (standard)", () => {
     const reg = buildFileMap(cfg())["domains/_registry.md"];
