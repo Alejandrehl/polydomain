@@ -6,6 +6,7 @@ import {
   REGISTRY,
 } from "../../src/templates/domains.js";
 import { FIXED } from "../../src/templates/fixed.js";
+import { MIGRATION } from "../../src/templates/migration.js";
 import { ROUTER } from "../../src/templates/router.js";
 
 describe("router template", () => {
@@ -172,5 +173,24 @@ describe("router + governance notes-store wiring", () => {
   it("guide has a connect-your-notes-store step", () => {
     expect(FIXED.guide).toMatch(/notes store/i);
     expect(FIXED.guide).toContain("--references obsidian");
+  });
+});
+describe("migration playbook template", () => {
+  it("encodes the lossless + preserve-don't-replace rules and the process", () => {
+    const m = MIGRATION;
+    expect(m).toContain("{{name}}");
+    expect(m).toMatch(/preserve.{0,4}don't replace/i);
+    expect(m).toMatch(/never overwrite/i);
+    expect(m).toMatch(/informed by this repo/i);
+    expect(m).toMatch(/spine/i);
+    expect(m).toMatch(/internal/i);
+    expect(m).toMatch(/never delete/i);
+    expect(m).toContain("git mv");
+    expect(m).toContain("inventory-before.md");
+    expect(m).toContain("inventory-after.md");
+    expect(m).toMatch(/tracked.{0,20}untracked/i);
+    expect(m).toContain("git diff");
+    expect(m).toContain("Anatomy of a command center");
+    expect(m).toMatch(/plan . review . approve . execute/i);
   });
 });
