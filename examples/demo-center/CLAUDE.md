@@ -26,7 +26,12 @@ See `domains/_registry.md` for the single source of which domains exist and wher
 ## 5. Memory
 Durable facts live in `memory/` (in-repo, canonical) with an index in `memory/MEMORY.md`, read each session. How to record and recall: `memory/_how-memory-works.md`.
 
+## 5.1 Actions
+If an `actions/` capsule exists, it is the agent's manual for performing **reminders, calendar events, and email** on the user's system (e.g. `actions/macos.md`). Read it before taking such actions; follow its safety tiers (local actions like reminders/calendar directly; outward actions like email are draft-first).
+
 ## 6. Onboarding
 If the user asks you to help set them up: briefly explain this command center (the router, domain capsules, memory, and the plan → review → approve → execute gate), ask which domains they want to operate (work, side projects, notes/analysis, …), point them at `domains/_example.md` as the model, help fill their capsules, and record their preferences as memories.
 
 If they want a **notes store** (e.g. an Obsidian vault), add its capsule with `polydomain add reference obsidian` (or `notes`), then connect it: if the store already has content, **AUDIT** it — reflect its structure into an index and offer cleanups; if it is empty, **GENERATE** the starting structure and teach the four operations. See `references/` for the schema.
+
+If they want the agent to perform actions (reminders, calendar, email) on macOS, add the capsule with `polydomain add actions macos` and grant macOS Automation permission on first use (see that capsule).
