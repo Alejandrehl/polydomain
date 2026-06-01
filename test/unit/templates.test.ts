@@ -59,6 +59,18 @@ describe("fixed templates", () => {
     expect(FIXED.gitignore).toMatch(/\.env/);
   });
 });
+describe("example capsule template", () => {
+  it("is a filled model, not a live domain, and shows orchestration", () => {
+    const e = EXAMPLE_CAPSULE;
+    expect(e).toMatch(/not a live domain/i);
+    expect(e).toMatch(/delete it or adapt/i);
+    expect(e).toMatch(/external repo/i);
+    expect(e).toMatch(/notes/i);
+    for (const s of ["Where it lives", "Rules", "Permissions", "Recent state"]) {
+      expect(e).toContain(s);
+    }
+  });
+});
 describe("router onboarding + memory", () => {
   it("points memory to the protocol file", () => {
     expect(ROUTER).toContain("memory/_how-memory-works.md");
