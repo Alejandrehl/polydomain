@@ -1,5 +1,15 @@
 # polydomain
 
+## 0.2.1
+
+### Patch Changes
+
+- 677bf14: Harden the CLI and tests (audit follow-up):
+
+  - An unknown top-level command now prints a clear error and exits non-zero (was a silent no-op exiting 0). Bare invocation prints help.
+  - Add regression coverage for the `cursor` nested-dir entrypoint, the `--no-memory` flag plumbing, and the unknown-command path.
+  - Tighten template assertions (memory-type enum, external-store read+write, example notes-store framing) so they fail on regression instead of matching incidental prose.
+
 ## 0.2.0
 
 ### Minor Changes
