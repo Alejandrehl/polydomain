@@ -22,7 +22,7 @@ const branch = (dir: string) =>
   }).trim();
 
 describe("adoptInRepo", () => {
-  it("on a clean repo: creates the branch and writes MIGRATION.md, nothing else", () => {
+  it("on a clean repo: creates the branch and writes MIGRATION.md uncommitted, nothing else", () => {
     const dir = gitRepo();
     adoptInRepo(dir);
     expect(branch(dir)).toBe("adopt/standard");
@@ -32,6 +32,25 @@ describe("adoptInRepo", () => {
     );
     expect(existsSync(join(dir, "governance.md"))).toBe(false);
     expect(existsSync(join(dir, "SECURITY.md"))).toBe(false);
+    // adopt must never commit: MIGRATION.md stays untracked.
+    const status = execSync("git status --porcelain", {
+      cwd: dir,
+      encoding: "utf8",
+    });
+    expect(status).toContain("?? MIGRATION.md");
+  });
+  it("fails in a repo with no commits", () => {
+    const dir = mkdtempSync(join(tmpdir(), "adopt-empty-"));
+    execSync("git init", { cwd: dir, stdio: "ignore" });
+    expect(() => adoptInRepo(dir)).toThrow(/at least one commit/i);
+  });
+  it("refuses to overwrite an existing (untracked) MIGRATION.md", () => {
+    const dir = gitRepo();
+    writeFileSync(join(dir, "MIGRATION.md"), "OLD CONTENT");
+    expect(() => adoptInRepo(dir)).toThrow(/MIGRATION\.md already exists/i);
+    // untouched + no branch created
+    expect(readFileSync(join(dir, "MIGRATION.md"), "utf8")).toBe("OLD CONTENT");
+    expect(branch(dir)).not.toBe("adopt/standard");
   });
   it("fails in a non-git dir", () => {
     const dir = mkdtempSync(join(tmpdir(), "plain-"));

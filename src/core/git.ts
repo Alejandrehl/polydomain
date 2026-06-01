@@ -16,6 +16,16 @@ export function assertGitRepo(root: string): void {
   }
 }
 
+export function assertHasCommits(root: string): void {
+  try {
+    git(root, "rev-parse --verify --quiet HEAD");
+  } catch {
+    throw new Error(
+      "adopt needs a repo with at least one commit — commit your existing work first.",
+    );
+  }
+}
+
 export function assertCleanTree(root: string): void {
   // --untracked-files=no: untracked files are allowed; only staged/unstaged changes count as dirty.
   const status = git(root, "status --porcelain --untracked-files=no");
