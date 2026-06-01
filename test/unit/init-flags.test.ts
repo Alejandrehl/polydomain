@@ -34,6 +34,8 @@ describe("runInit (non-interactive with --yes)", () => {
   it("scaffolds the cursor agent's nested-dir entrypoint", async () => {
     const dir = join(mkdtempSync(join(tmpdir(), "cd-")), "cursor-center");
     await runInit({ dir, yes: true, agent: "cursor", noGit: true });
-    expect(existsSync(join(dir, ".cursor/rules/command-center.mdc"))).toBe(true);
+    expect(existsSync(join(dir, ".cursor/rules/command-center.mdc"))).toBe(
+      true,
+    );
   });
 });
