@@ -51,4 +51,17 @@ cli
 
 cli.help();
 cli.version(VERSION);
-cli.parse();
+
+// cac auto-prints --version/--help during parse(); we only handle command dispatch.
+const parsed = cli.parse(process.argv, { run: false });
+if (cli.matchedCommand) {
+  await cli.runMatchedCommand();
+} else if (!parsed.options.version && !parsed.options.help) {
+  if (parsed.args.length > 0) {
+    console.error(
+      `Unknown command: "${parsed.args[0]}". Run \`${TOOL_NAME} --help\` to see available commands.`,
+    );
+    process.exit(1);
+  }
+  cli.outputHelp();
+}
