@@ -4,8 +4,9 @@ on:
     branches: [main]
 permissions:
   contents: write
-  id-token: write
   pull-requests: write
+# Version-PR management only. Actual npm publish (provenance + first deliberate
+# release) is wired in a later phase; this workflow cannot publish.
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -16,12 +17,7 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-          registry-url: "https://registry.npmjs.org"
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build
       - uses: changesets/action@v1
-        with:
-          publish: pnpm exec changeset publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: "true"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
