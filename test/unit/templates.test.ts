@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { render } from "../../src/core/tokens.js";
-import { CAPSULES, EXAMPLE_CAPSULE, REGISTRY } from "../../src/templates/domains.js";
+import {
+  CAPSULES,
+  EXAMPLE_CAPSULE,
+  REGISTRY,
+} from "../../src/templates/domains.js";
 import { FIXED } from "../../src/templates/fixed.js";
 import { ROUTER } from "../../src/templates/router.js";
 
@@ -79,7 +83,12 @@ describe("example capsule template", () => {
     expect(e).toMatch(/delete it or adapt/i);
     expect(e).toMatch(/external repo/i);
     expect(e).toMatch(/notes/i);
-    for (const s of ["Where it lives", "Rules", "Permissions", "Recent state"]) {
+    for (const s of [
+      "Where it lives",
+      "Rules",
+      "Permissions",
+      "Recent state",
+    ]) {
       expect(e).toContain(s);
     }
   });
@@ -98,7 +107,8 @@ describe("memory protocol template", () => {
   it("teaches the protocol: types, frontmatter, when-not, recall, canonical/in-repo, privacy", () => {
     const m = FIXED.memoryProtocol;
     expect(m).toMatch(/one durable fact per file/i);
-    for (const t of ["user", "feedback", "project", "reference"]) expect(m).toContain(t);
+    for (const t of ["user", "feedback", "project", "reference"])
+      expect(m).toContain(t);
     expect(m).toMatch(/description:/);
     expect(m).toMatch(/don't.*derivable from code/i);
     expect(m).toMatch(/MEMORY\.md is the index/i);
