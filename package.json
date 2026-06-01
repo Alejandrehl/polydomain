@@ -1,6 +1,6 @@
 {
   "name": "polydomain",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A npx scaffolder that turns your AI coding agent into a multi-domain command center — the Capsule architecture.",
   "keywords": [
     "cli",
