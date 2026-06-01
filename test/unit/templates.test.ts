@@ -43,6 +43,7 @@ describe("fixed templates", () => {
   it("provides all fixed files", () => {
     const keys: (keyof typeof FIXED)[] = [
       "memoryIndex",
+      "memoryProtocol",
       "governance",
       "guide",
       "security",
