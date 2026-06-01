@@ -1,7 +1,7 @@
 {
   "name": "polydomain",
   "version": "0.4.0",
-  "description": "A npx scaffolder that turns your AI coding agent into a multi-domain command center — the Capsule architecture.",
+  "description": "Scaffold a command center for your AI coding agent: a thin router, per-domain capsules, persistent memory, and an optional Obsidian/notes knowledge base — the Capsule architecture.",
   "keywords": [
     "cli",
     "scaffolding",
@@ -11,7 +11,10 @@
     "command-center",
     "developer-tools",
     "npx",
-    "typescript"
+    "typescript",
+    "memory",
+    "obsidian",
+    "knowledge-management"
   ],
   "homepage": "https://alejandrehl.github.io/polydomain/",
   "repository": {
