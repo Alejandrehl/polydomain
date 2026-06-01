@@ -2,6 +2,7 @@ import { execSync } from "node:child_process";
 import { basename } from "node:path";
 import {
   CAPSULES,
+  EXAMPLE_CAPSULE,
   genericCapsule,
   REGISTRY,
   registryRow,
@@ -39,6 +40,9 @@ export function buildFileMap(cfg: InitConfig): Record<string, string> {
     files[`domains/${d}.md`] = render(md, v);
   }
 
+  // after the per-domain loop, before governance:
+  files["domains/_example.md"] = render(EXAMPLE_CAPSULE, v);
+
   files["governance.md"] = render(FIXED.governance, v);
   files["GUIDE.md"] = render(FIXED.guide, v);
   files["SECURITY.md"] = render(FIXED.security, v);
@@ -46,8 +50,10 @@ export function buildFileMap(cfg: InitConfig): Record<string, string> {
   files[".gitignore"] = FIXED.gitignore;
 
   files["workspace/.gitkeep"] = "";
-  if (cfg.includeMemory)
+  if (cfg.includeMemory) {
     files["memory/MEMORY.md"] = render(FIXED.memoryIndex, v);
+    files["memory/_how-memory-works.md"] = render(FIXED.memoryProtocol, v);
+  }
   if (cfg.includeReferences)
     files["references/external-store.md"] = render(FIXED.externalStore, v);
 
