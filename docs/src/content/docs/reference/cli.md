@@ -32,6 +32,10 @@ Add an entrypoint for another agent (`claude`, `codex`, `gemini`, `cursor`). Run
 
 Add a notes-store capsule to an existing command center: `notes` (the generic `references/notes-store.md` core) or `obsidian` (the core plus `references/obsidian.md`). Run it from inside a command center. Fails on an unknown type or if the capsule already exists.
 
+## `adopt`
+
+Bring an existing repo up to the command-center standard. Run it from inside a git repo with a clean working tree. It creates the `adopt/standard` branch and writes `MIGRATION.md` (a playbook your agent follows); it writes nothing else and edits nothing. Fails if the directory is not a git repo, the tree is dirty, or the branch already exists. See [Adopt an existing repo](/polydomain/guides/adopt/).
+
 ## `--help` · `--version`
 
 Standard.
