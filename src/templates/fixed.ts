@@ -46,16 +46,21 @@ Asymmetric governance keeps rigor where it matters and speed elsewhere.
 - **Constitutional files** (the router, this file): change via ritual — propose → approve → changelog entry.
 - **Operational files** (capsules, memory, workspace): change directly.
 `,
-  guide: `# Guide — the Capsule architecture (primer)
+  guide: `# Guide — your command center
 
-This command center follows the **Capsule architecture**: one agent operates across many domains via a thin router + composable capsules, with persistent memory and a plan→review→approve→execute safety gate.
+This is your **single entry point to orchestrate everything** with your AI agent: code in any repo, notes and analysis in your notes store, and any other task. The command center is the operating manual your agent reads; your agent does the work.
 
-Full methodology: see the \`polydomain\` docs site. Quick map:
-- your agent's entrypoint (e.g. \`CLAUDE.md\`) — the thin router (startup, transversal rules, hierarchy).
-- \`domains/\` — one capsule per domain; \`_registry.md\` indexes them.
-- \`memory/\` — durable facts + index.
-- \`workspace/\` — where plans get persisted.
-- \`governance.md\` — what changes need a ritual.
+## Your first session
+Open your agent's entrypoint (e.g. \`CLAUDE.md\`) and say: **"help me set up my command center."** Your agent will explain the system, ask which domains you want, and help you fill them in.
+
+## How it's organized
+- \`<entrypoint>.md\` — the **router** your agent reads each session (startup, always-on rules, where to find things).
+- \`domains/\` — one **capsule** per domain. The \`work\` / \`side-project\` capsules are **yours to fill in**; \`domains/_example.md\` is a filled **model** to learn the shape from (read it, then delete or adapt).
+- \`memory/\` — **persistent memory** (durable facts across sessions). How it works: \`memory/_how-memory-works.md\`.
+- \`workspace/\` — where plans get persisted. \`governance.md\` — what changes need a ritual.
+
+## The Capsule architecture
+One agent, many domains: a thin router + composable capsules + memory + a plan → review → approve → execute safety gate. Full methodology: the \`polydomain\` docs site.
 `,
   security: `# Security
 
@@ -86,15 +91,16 @@ See \`GUIDE.md\` for the methodology primer.
 .DS_Store
 *.log
 `,
-  externalStore: `# Reference — external store (example integration)
+  externalStore: `# Reference — external store (notes / analysis)
 
-> Optional capsule: how the agent reads/links an external knowledge store (notes app, wiki).
-> Generic placeholder — point it at your store; keep secrets out (see SECURITY.md).
+> Optional capsule: an external store (a notes app, a wiki, a folder) the agent **reads and writes** — a place to capture notes and analysis, not only cite.
 
 ## Where it lives
-- Path or URL of your external store.
+- Path or URL of your store (e.g. \`~/notes/\`).
 
 ## Rules
-- Read-only by default; writes via the safety gate.
+- Read for context; **write** notes and analysis here when that's the task.
+- Writes go through the safety gate; reflect and link, don't duplicate what already lives in code.
+- Keep secrets out (see \`SECURITY.md\`).
 `,
 } as const;

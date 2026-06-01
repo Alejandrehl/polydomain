@@ -59,6 +59,19 @@ describe("fixed templates", () => {
     expect(FIXED.gitignore).toMatch(/\.env/);
   });
 });
+describe("guide + external store reframe", () => {
+  it("guide frames the command center as an orchestrator with a first-session step", () => {
+    const g = FIXED.guide;
+    expect(g).toMatch(/orchestrate everything/i);
+    expect(g).toMatch(/your first session/i);
+    expect(g).toMatch(/help me set up/i);
+    expect(g).toContain("_how-memory-works.md");
+    expect(g).toContain("domains/_example.md");
+  });
+  it("external store is read AND write (capture notes/analysis)", () => {
+    expect(FIXED.externalStore).toMatch(/reads and writes|capture notes/i);
+  });
+});
 describe("example capsule template", () => {
   it("is a filled model, not a live domain, and shows orchestration", () => {
     const e = EXAMPLE_CAPSULE;
