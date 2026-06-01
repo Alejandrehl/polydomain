@@ -1,6 +1,6 @@
 // Smoke test of the BUILT binary (dist/cli.js) — exercises the CLI dispatch,
 // the happy paths, and the error paths (which exit non-zero with a clean message).
-import { execFileSync } from "node:child_process";
+import { execFileSync, execSync } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
@@ -125,6 +125,19 @@ const e5 = runExpectError([
 ]);
 if (!e5 || e5.status === 0 || !/unknown references type/i.test(e5.out))
   fail("unknown references type should exit non-zero with a message");
+
+// 11. adopt in a temp git repo: creates branch + MIGRATION.md
+const gd = mkdtempSync(join(tmpdir(), "smoke-adopt-"));
+execSync("git init", { cwd: gd, stdio: "ignore" });
+run(["adopt"], { cwd: gd, stdio: "pipe" });
+if (!existsSync(join(gd, "MIGRATION.md")))
+  fail("adopt: MIGRATION.md not written");
+
+// 12. adopt in a non-git dir -> non-zero + message
+const nd = mkdtempSync(join(tmpdir(), "smoke-plain-"));
+const e6 = runExpectError(["adopt"], { cwd: nd });
+if (!e6 || e6.status === 0 || !/needs a git repository/i.test(e6.out))
+  fail("adopt outside a git repo should exit non-zero with a message");
 
 if (failures > 0) {
   console.error(`smoke FAILED (${failures} check(s))`);

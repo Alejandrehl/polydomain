@@ -2,6 +2,7 @@ import { cac } from "cac";
 import { runAddAgent } from "./commands/add-agent.js";
 import { runAddDomain } from "./commands/add-domain.js";
 import { runAddReference } from "./commands/add-reference.js";
+import { runAdopt } from "./commands/adopt.js";
 import { runInit } from "./commands/init.js";
 import { TOOL_NAME, VERSION } from "./meta.js";
 
@@ -49,6 +50,17 @@ cli
         );
         process.exit(1);
       }
+    } catch (e) {
+      console.error((e as Error).message);
+      process.exit(1);
+    }
+  });
+
+cli
+  .command("adopt", "Adopt the polydomain standard in an existing repo")
+  .action(async () => {
+    try {
+      await runAdopt();
     } catch (e) {
       console.error((e as Error).message);
       process.exit(1);
