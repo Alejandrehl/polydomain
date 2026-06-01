@@ -1,10 +1,15 @@
-# Guide — the Capsule architecture (primer)
+# Guide — your command center
 
-This command center follows the **Capsule architecture**: one agent operates across many domains via a thin router + composable capsules, with persistent memory and a plan→review→approve→execute safety gate.
+This is your **single entry point to orchestrate everything** with your AI agent: code in any repo, notes and analysis in your notes store, and any other task. The command center is the operating manual your agent reads; your agent does the work.
 
-Full methodology: see the `polydomain` docs site. Quick map:
-- your agent's entrypoint (e.g. `CLAUDE.md`) — the thin router (startup, transversal rules, hierarchy).
-- `domains/` — one capsule per domain; `_registry.md` indexes them.
-- `memory/` — durable facts + index.
-- `workspace/` — where plans get persisted.
-- `governance.md` — what changes need a ritual.
+## Your first session
+Open your agent's entrypoint (e.g. `CLAUDE.md`) and say: **"help me set up my command center."** Your agent will explain the system, ask which domains you want, and help you fill them in.
+
+## How it's organized
+- `<entrypoint>.md` — the **router** your agent reads each session (startup, always-on rules, where to find things).
+- `domains/` — one **capsule** per domain. The `work` / `side-project` capsules are **yours to fill in**; `domains/_example.md` is a filled **model** to learn the shape from (read it, then delete or adapt).
+- `memory/` — **persistent memory** (durable facts across sessions). How it works: `memory/_how-memory-works.md`.
+- `workspace/` — where plans get persisted. `governance.md` — what changes need a ritual.
+
+## The Capsule architecture
+One agent, many domains: a thin router + composable capsules + memory + a plan → review → approve → execute safety gate. Full methodology: the `polydomain` docs site.

@@ -24,4 +24,7 @@
 See `domains/_registry.md` for the single source of which domains exist and where each lives. Extend = one row + one capsule.
 
 ## 5. Memory
-Durable facts live in `memory/` with an index in `memory/MEMORY.md` (loaded each session). Governance of changes in `governance.md`.
+Durable facts live in `memory/` (in-repo, canonical) with an index in `memory/MEMORY.md`, read each session. How to record and recall: `memory/_how-memory-works.md`.
+
+## 6. Onboarding
+If the user asks you to help set them up: briefly explain this command center (the router, domain capsules, memory, and the plan → review → approve → execute gate), ask which domains they want to operate (work, side projects, notes/analysis, …), point them at `domains/_example.md` as the model, help fill their capsules, and record their preferences as memories.
