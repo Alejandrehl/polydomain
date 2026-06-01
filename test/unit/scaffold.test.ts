@@ -113,6 +113,17 @@ describe("buildFileMap", () => {
     expect(reg).not.toContain("`domains/personal.md`");
     expect(reg).not.toContain("`domains/home.md`");
   });
+  it("includes the memory protocol file when memory is on, omits with --no-memory", () => {
+    expect(buildFileMap(cfg())).toHaveProperty("memory/_how-memory-works.md");
+    expect(buildFileMap(cfg({ includeMemory: false }))).not.toHaveProperty(
+      "memory/_how-memory-works.md",
+    );
+  });
+  it("always includes the example capsule, and it is NOT in the registry", () => {
+    const m = buildFileMap(cfg());
+    expect(m).toHaveProperty("domains/_example.md");
+    expect(m["domains/_registry.md"]).not.toContain("_example.md");
+  });
   it("registry lists all four domains under the full preset", () => {
     const reg = buildFileMap(cfg({ domains: "full" }))["domains/_registry.md"];
     for (const d of ["work", "side-project", "personal", "home"]) {
