@@ -1,4 +1,5 @@
 import { cac } from "cac";
+import { runAddActions } from "./commands/add-actions.js";
 import { runAddAgent } from "./commands/add-agent.js";
 import { runAddDomain } from "./commands/add-domain.js";
 import { runAddReference } from "./commands/add-reference.js";
@@ -14,6 +15,7 @@ cli
   .option("--domains <spec>", "minimal|standard|full or a comma list")
   .option("--with-references", "Alias for --references notes")
   .option("--references <type>", "Notes store capsule: notes|obsidian")
+  .option("--actions <platform>", "Actions capsule: macos")
   .option("--no-memory", "Skip the memory system")
   .option("--no-git", "Skip git init")
   .option("--force", "Write into a non-empty directory")
@@ -27,6 +29,7 @@ cli
         domains: o.domains as string,
         withReferences: o.withReferences as boolean,
         references: o.references as string,
+        actions: o.actions as string,
         noMemory: o.memory === false,
         noGit: o.git === false,
         force: o.force as boolean,
@@ -44,9 +47,10 @@ cli
       if (kind === "domain") await runAddDomain(value);
       else if (kind === "agent") await runAddAgent(value);
       else if (kind === "reference") await runAddReference(value);
+      else if (kind === "actions") await runAddActions(value);
       else {
         console.error(
-          `Unknown kind: "${kind}". Valid: domain, agent, reference`,
+          `Unknown kind: "${kind}". Valid: domain, agent, reference, actions`,
         );
         process.exit(1);
       }
