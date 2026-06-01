@@ -59,6 +59,16 @@ describe("fixed templates", () => {
     expect(FIXED.gitignore).toMatch(/\.env/);
   });
 });
+describe("router onboarding + memory", () => {
+  it("points memory to the protocol file", () => {
+    expect(ROUTER).toContain("memory/_how-memory-works.md");
+  });
+  it("has a user-triggered onboarding section", () => {
+    expect(ROUTER).toMatch(/## 6\. Onboarding/);
+    expect(ROUTER).toMatch(/if the user asks you to help/i);
+    expect(ROUTER).toContain("domains/_example.md");
+  });
+});
 describe("memory protocol template", () => {
   it("teaches the protocol: types, frontmatter, when-not, recall, canonical/in-repo, privacy", () => {
     const m = FIXED.memoryProtocol;
