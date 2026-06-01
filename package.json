@@ -1,6 +1,6 @@
 {
   "name": "polydomain",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Scaffold a command center for your AI coding agent: a thin router, per-domain capsules, persistent memory, and an optional Obsidian/notes knowledge base — the Capsule architecture.",
   "keywords": [
     "cli",

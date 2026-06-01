@@ -1,5 +1,16 @@
 # polydomain
 
+## 0.5.0
+
+### Minor Changes
+
+- 0bd2031: Add the optional actions layer (macOS-first): `--actions macos` and `add actions macos` generate `actions/macos.md`, a capsule with verified `osascript`/Mail.app recipes for reminders, calendar events, and email.
+
+  - Tiered safety: reminders/calendar run directly (local, reversible); email is **draft-first** (the agent prepares a draft and you send it from Mail; auto-send after approval is opt-in).
+  - Documents the macOS Automation-permission prerequisite (and the `-1743` error / headless degradation).
+  - The router gains a standing pointer to the actions capsule. New guide: "Actions (macOS)". macOS-first is stated precisely in the README/docs — the core stays cross-platform.
+  - WhatsApp and other OS flavors are explicitly deferred.
+
 ## 0.4.1
 
 ### Patch Changes
