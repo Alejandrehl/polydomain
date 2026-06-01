@@ -56,7 +56,15 @@ export function buildFileMap(cfg: InitConfig): Record<string, string> {
 
 export function scaffold(cfg: InitConfig): void {
   ensureEmpty(cfg.dir, cfg.force);
-  writeTree(cfg.dir, buildFileMap(cfg));
+  try {
+    writeTree(cfg.dir, buildFileMap(cfg));
+  } catch (e) {
+    const code = (e as NodeJS.ErrnoException).code;
+    if (code === "EACCES" || code === "EPERM") {
+      throw new Error(`Cannot write to ${cfg.dir}: permission denied.`);
+    }
+    throw e;
+  }
   if (cfg.gitInit) {
     try {
       execSync("git init", { cwd: cfg.dir, stdio: "ignore" });
