@@ -133,3 +133,30 @@ describe("render leaves non-{{}} placeholders untouched", () => {
     expect(out).not.toContain("{{name}}");
   });
 });
+describe("notes-store template", () => {
+  it("teaches index hierarchy, frontmatter, the four ops, promotion, write posture, degradation, security", () => {
+    const m = FIXED.notesStore;
+    expect(m).toMatch(/three reads per question/i);
+    expect(m).toContain("_index.md");
+    expect(m).toContain("type: source | concept | entity | synthesis | index");
+    expect(m).toMatch(/confidence: high \| medium \| low/);
+    for (const op of ["CAPTURE", "COMPILE", "QUERY", "AUDIT"])
+      expect(m).toMatch(new RegExp(`\\*\\*${op}\\*\\*`));
+    expect(m).toMatch(/reflect and link.{0,4}don't copy/i);
+    expect(m).toMatch(/confirm before writing/i);
+    expect(m).toMatch(/unavailable/i);
+    expect(m).toMatch(/never invent/i);
+    expect(m).toMatch(/secret/i);
+  });
+});
+describe("obsidian template", () => {
+  it("adds wikilinks, vault root, sync degradation, optional MCP, security", () => {
+    const o = FIXED.obsidian;
+    expect(o).toContain("[[note-name]]");
+    expect(o).toMatch(/bidirectional/i);
+    expect(o).toMatch(/~\/vault\//);
+    expect(o).toMatch(/MCP server/i);
+    expect(o).toMatch(/not required|optional/i);
+    expect(o).toMatch(/model provider/i);
+  });
+});
