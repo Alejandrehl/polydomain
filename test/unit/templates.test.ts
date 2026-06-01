@@ -74,7 +74,8 @@ describe("guide + external store reframe", () => {
     expect(g).toContain("domains/_example.md");
   });
   it("external store is read AND write (capture notes/analysis)", () => {
-    expect(FIXED.externalStore).toMatch(/reads and writes|capture notes/i);
+    expect(FIXED.externalStore).toMatch(/reads and writes/i);
+    expect(FIXED.externalStore).toMatch(/\*\*write\*\* notes/i);
   });
 });
 describe("example capsule template", () => {
@@ -83,7 +84,8 @@ describe("example capsule template", () => {
     expect(e).toMatch(/not a live domain/i);
     expect(e).toMatch(/delete it or adapt/i);
     expect(e).toMatch(/external repo/i);
-    expect(e).toMatch(/notes/i);
+    expect(e).toMatch(/external notes store/i);
+    expect(e).toMatch(/read and write there/i);
     for (const s of [
       "Where it lives",
       "Rules",
@@ -108,8 +110,9 @@ describe("memory protocol template", () => {
   it("teaches the protocol: types, frontmatter, when-not, recall, canonical/in-repo, privacy", () => {
     const m = FIXED.memoryProtocol;
     expect(m).toMatch(/one durable fact per file/i);
+    expect(m).toContain("type: user | feedback | project | reference");
     for (const t of ["user", "feedback", "project", "reference"])
-      expect(m).toContain(t);
+      expect(m).toMatch(new RegExp(`- \\*\\*${t}\\*\\* —`));
     expect(m).toMatch(/description:/);
     expect(m).toMatch(/don't.*derivable from code/i);
     expect(m).toMatch(/MEMORY\.md is the index/i);

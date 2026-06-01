@@ -90,6 +90,11 @@ const e3 = runExpectError(["add", "foo", "bar"], { cwd: dir });
 if (!e3 || e3.status === 0 || !/unknown kind/i.test(e3.out))
   fail("unknown kind should fail");
 
+// 8. error: unknown top-level command -> non-zero + message (not a silent no-op)
+const e4 = runExpectError(["frobnicate"]);
+if (!e4 || e4.status === 0 || !/unknown command/i.test(e4.out))
+  fail("unknown command should exit non-zero with a clear message");
+
 if (failures > 0) {
   console.error(`smoke FAILED (${failures} check(s))`);
   process.exit(1);
