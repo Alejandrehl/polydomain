@@ -157,3 +157,20 @@ describe("obsidian template", () => {
     expect(o).toMatch(/model provider/i);
   });
 });
+describe("router + governance notes-store wiring", () => {
+  it("router onboarding mentions connecting a notes store with audit/generate", () => {
+    expect(ROUTER).toMatch(/notes store/i);
+    expect(ROUTER).toMatch(/add reference/i);
+    expect(ROUTER).toMatch(/audit/i);
+    expect(ROUTER).toMatch(/generate/i);
+  });
+  it("governance states the standard and the memory vs notes-store boundary", () => {
+    expect(FIXED.governance).toMatch(/polydomain standard/i);
+    expect(FIXED.governance).toMatch(/every session.{0,40}memory/i);
+    expect(FIXED.governance).toMatch(/notes store/i);
+  });
+  it("guide has a connect-your-notes-store step", () => {
+    expect(FIXED.guide).toMatch(/notes store/i);
+    expect(FIXED.guide).toContain("--references obsidian");
+  });
+});

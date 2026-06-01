@@ -28,4 +28,6 @@ Durable facts live in \`memory/\` (in-repo, canonical) with an index in \`memory
 
 ## 6. Onboarding
 If the user asks you to help set them up: briefly explain this command center (the router, domain capsules, memory, and the plan → review → approve → execute gate), ask which domains they want to operate (work, side projects, notes/analysis, …), point them at \`domains/_example.md\` as the model, help fill their capsules, and record their preferences as memories.
+
+If they want a **notes store** (e.g. an Obsidian vault), add its capsule with \`polydomain add reference obsidian\` (or \`notes\`), then connect it: if the store already has content, **AUDIT** it — reflect its structure into an index and offer cleanups; if it is empty, **GENERATE** the starting structure and teach the four operations. See \`references/\` for the schema.
 `;
