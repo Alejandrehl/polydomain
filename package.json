@@ -1,13 +1,34 @@
 {
   "name": "polydomain",
   "version": "0.0.0",
+  "description": "A npx scaffolder that turns your AI coding agent into a multi-domain command center — the Capsule architecture.",
+  "keywords": [
+    "cli",
+    "scaffolding",
+    "ai-agents",
+    "agentic-ai",
+    "claude-code",
+    "command-center",
+    "developer-tools",
+    "npx",
+    "typescript"
+  ],
+  "homepage": "https://alejandrehl.github.io/polydomain/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alejandrehl/polydomain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Alejandrehl/polydomain/issues"
+  },
+  "author": "Alejandro Hernández Lara",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "polydomain": "dist/cli.js"
   },
   "files": [
-    "dist",
-    "templates"
+    "dist"
   ],
   "engines": {
     "node": ">=20"

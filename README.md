@@ -2,6 +2,10 @@
 
 > A `npx` scaffolder that turns your AI coding agent into a multi-domain command center — the **Capsule architecture**.
 
+[![CI](https://github.com/Alejandrehl/polydomain/actions/workflows/ci.yml/badge.svg)](https://github.com/Alejandrehl/polydomain/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-polydomain-0A0A0A)](https://alejandrehl.github.io/polydomain/)
+
 ---
 
 ## What & why
